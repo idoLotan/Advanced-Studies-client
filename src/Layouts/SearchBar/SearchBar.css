@@ -1,0 +1,25 @@
+
+  .form-group {
+    position: relative;
+  }
+  
+  .form-control {
+    padding-left: 3.5rem;
+    border: none;
+    background-color:#f3f3f3;
+    border-left:none;
+    border-radius: 5px;
+    min-height: 70px;
+    width: 280px;
+  }
+  
+  .search-icon {
+    cursor: pointer;
+    position: absolute;
+    left: 15px;
+    top:0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  

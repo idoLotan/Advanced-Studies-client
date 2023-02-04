@@ -1,0 +1,19 @@
+.custom-btn{
+    cursor: pointer;
+    margin: 2px;
+}
+
+ button:disabled,
+button[disabled]{
+  color: #3f3f3f;
+}
+
+.text{
+    position: relative;
+    right:5px;
+    bottom: 1px;
+}
+
+
+
+

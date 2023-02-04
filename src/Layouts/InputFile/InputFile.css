@@ -1,0 +1,34 @@
+.custom-file-input {
+    height: 40px;
+    width: 200px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 18px;
+    position: relative;
+  }
+  .custom-file-input::before {
+    content: "Choose image";
+    display: block;
+    background: rgb(156, 156, 156);
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 40px;
+    color: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .custom-file-input:hover::before {
+    background: #333;
+  }
+
+  .input-file-content{
+   display: flex;
+   flex-direction: row;
+   justify-content: flex-start; 
+   
+  }
+
+
