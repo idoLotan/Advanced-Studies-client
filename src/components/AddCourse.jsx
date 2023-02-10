@@ -1,14 +1,26 @@
 import axios from "axios";
 import { useRef, useState } from "react";
-import { baseUrl } from "../axiosController";
-import Uploader from "./Uploader";
+import { baseUrl, postImage } from "../axios";
+
+import InputFile from "../Layouts/InputFile/InputFile";
 
 export const AddCourse = () => {
   const [message, setMessage] = useState("");
   const [courseName, setCourseName] = useState("");
   const [fieldName, setFieldName] = useState("");
-
+  const [cardImage, setCardImage] = useState([]);
+  const [pageImage, setPageImage] = useState([]);
   const courseTextRef = useRef();
+
+  // async function getCourseIdByName() {
+  //   const resp = await axios.get(
+  //     `${baseUrl}/courses/name?courseName=${courseName}`
+  //   );
+  //   const id = resp.data.data._id;
+  //   return id;
+  // }
+
+  console.log("pageImage,cardImage", pageImage, cardImage);
 
   async function saveCourse() {
     let data = {
@@ -20,9 +32,13 @@ export const AddCourse = () => {
         `${baseUrl}/courses/addCourse/${fieldName}`,
         data
       );
-      // const itemAdded = resp.data.payload.success;
-      // return setMessage(itemAdded ? "field added!" : "field already exist");
       console.log("resp", resp);
+      const id = await resp.data._id;
+      postImage("card", cardImage, id);
+      postImage("page", pageImage, id);
+      const itemAdded = resp.data._id;
+      console.log("itemAdded", itemAdded);
+      return setMessage(itemAdded ? "course added!" : "course already exist");
     } catch (err) {
       console.error(err);
     }
@@ -30,7 +46,7 @@ export const AddCourse = () => {
   return (
     <div className="add-course pad fade-in">
       <div className="row left">
-        <div className="col pad">
+        <div className=" pad">
           <div className="add-course-content ">
             <input
               type="text"
@@ -43,8 +59,17 @@ export const AddCourse = () => {
               onChange={(e) => setCourseName(e.target.value)}
             />
           </div>
-          <Uploader courseName={courseName} imageType={"card-img"}></Uploader>
-          <Uploader courseName={courseName} imageType={"page-img"}></Uploader>
+
+          <div className="row left">
+            <InputFile setFile={setCardImage} title={"card image"}></InputFile>
+          </div>
+          <div className="row left">
+            <InputFile setFile={setPageImage} title={"page image"}></InputFile>
+          </div>
+
+          {/* <button className="btn black" onClick={() => postImage("card")}>
+            img
+          </button> */}
         </div>
       </div>
       <textarea type="text" placeholder="Course Text..." ref={courseTextRef} />

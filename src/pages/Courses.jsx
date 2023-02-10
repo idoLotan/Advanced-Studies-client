@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { baseUrl } from "../axiosController";
+import { baseUrl } from "../axios";
 import PopularCourses from "../components/PopularCourses";
 import Search from "../components/Search";
 import useClass from "../Hooks/useClass";
@@ -8,7 +8,8 @@ import SearchBar from "../Layouts/SearchBar/SearchBar";
 import ClassPage from "./ClassPage";
 
 const Courses = () => {
-  const { choseClass, currntClass, toggledClass, setToggledClass } = useClass();
+  const { choseCourse, currentCourse, toggledCourse, setToggledCourse } =
+    useClass();
 
   const [searchInput, setSearchInput] = useState("");
   const [searchClasses, setSearchClasses] = useState([]);
@@ -37,11 +38,11 @@ const Courses = () => {
     <div className="classes-page  fade-in">
       {loader && <span class="loader"></span>}
       <div className="classes-page-section col pad">
-        {toggledClass ? (
+        {toggledCourse ? (
           <>
             <ClassPage
-              currntClass={currntClass}
-              setToggledClass={setToggledClass}
+              currentCourse={currentCourse}
+              setToggledCourse={setToggledCourse}
             />
           </>
         ) : (
@@ -61,13 +62,13 @@ const Courses = () => {
             {toggledResult ? (
               <Search
                 searchClasses={searchClasses}
-                choseClass={choseClass}
-                currntClass={currntClass}
+                choseCourse={choseCourse}
+                currntClass={currentCourse}
               ></Search>
             ) : (
               <PopularCourses
-                choseClass={choseClass}
-                currntClass={currntClass}
+                choseCourse={choseCourse}
+                currentCourse={currentCourse}
               />
             )}
           </>

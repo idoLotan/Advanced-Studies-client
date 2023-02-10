@@ -1,36 +1,47 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { baseUrl } from "../axiosController";
+import { baseUrl } from "../axios";
 import Card from "../Layouts/Card/Card";
 
-const PopularCourses = ({ choseClass }) => {
-  const [popCourses, setPopCourses] = useState(null);
+const PopularCourses = ({ choseCourse }) => {
+  const [popCourses, setPopCourses] = useState([]);
+
+  console.log("popCourses", popCourses);
 
   useEffect(() => {
     getPopularCourses();
+    console.log(popCourses);
   }, []);
 
   async function getPopularCourses() {
-    const temp = await axios.get(`${baseUrl}/courses/popular`);
-    console.log(temp);
-    setPopCourses(temp.data.data);
+    try {
+      console.log(`${baseUrl}/courses/popular`);
+      const temp = await axios.get(`${baseUrl}/courses/popular`);
+      console.log(temp);
+      setPopCourses(temp.data.data);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
     <div className="popular-classes ">
       <div className="cards-title">Popular Classes</div>
       <div className="classes ">
-        {popCourses?.map((course) => (
-          <Card
-            classes={popCourses}
-            currentClass={course}
-            choseClass={choseClass}
-            key={course._id}
-            classTitle={course.courseName}
-            isOpen={false}
-            precent={course.precent}
-          />
-        ))}
+        {popCourses?.map(
+          (course) =>
+            course && (
+              <Card
+                courses={popCourses}
+                currentCourse={course}
+                choseCourse={choseCourse}
+                key={course._id}
+                courseTitle={course.courseName}
+                isOpen={false}
+                precent={course.precent}
+              />
+            )
+        )}
       </div>
     </div>
   );

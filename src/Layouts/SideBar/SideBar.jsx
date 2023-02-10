@@ -7,12 +7,14 @@ export const Sidebar = ({ dispatch, state, title }) => {
       <div className="sidebar__title">{title}</div>
       <aside>
         <Button
+          className={"pad"}
           icon="atom"
           onClick={() => dispatch({ type: "field" })}
           text={"field"}
           style={{ color: state.option === "field" && "gray" }}
         ></Button>
         <Button
+          className={"pad"}
           icon="apple-alt"
           onClick={() => dispatch({ type: "course" })}
           text={"course"}
@@ -20,6 +22,7 @@ export const Sidebar = ({ dispatch, state, title }) => {
         ></Button>
 
         <Button
+          className={"pad"}
           icon="question"
           onClick={() => dispatch({ type: "questions" })}
           text={"questions"}

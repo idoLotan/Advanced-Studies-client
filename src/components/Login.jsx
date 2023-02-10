@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { baseUrl, PostAuth } from "../axiosController";
+import { baseUrl } from "../axios";
 import Button from "../Layouts/Button/Button";
 import { useRef } from "react";
 import axios from "axios";

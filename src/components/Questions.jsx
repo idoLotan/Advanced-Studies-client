@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useContext, useState } from "react";
-import { baseUrl } from "../axiosController";
+import { baseUrl } from "../axios";
 import { UserContext } from "../context/UserContext";
 import Button from "../Layouts/Button/Button";
 import ButtonCol from "../Layouts/Button/ButtonCol";
@@ -10,8 +10,8 @@ const Questions = ({
   setCount,
   count,
   previousBtnDisplay,
-  classQuestions,
-  currntClass,
+  courseQuestions,
+  currentCourse,
 }) => {
   const [chosenAnswer, setChosenAnswer] = useState("");
   const [submit, setSubmit] = useState("");
@@ -21,7 +21,9 @@ const Questions = ({
   const [animation, setAnimation] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const context = useContext(UserContext);
-  const qestion = classQuestions[count];
+  const qestion = courseQuestions[count];
+
+  console.log("qestion", qestion);
 
   function handleImageLoaded() {
     setIsLoading(false);
@@ -47,7 +49,7 @@ const Questions = ({
         const resp = await axios.post(
           `${baseUrl}/class/login/submitAnswer/${qestion._id}`,
           {
-            classId: currntClass._id,
+            classId: currentCourse._id,
           },
           {
             headers: {
@@ -98,16 +100,15 @@ const Questions = ({
   };
 
   return (
-    <div
-      className="class-page-content fade-in row"
-      style={{ display: isLoading ? "none" : "block" }}
-    >
+    <div className="class-page-content fade-in">
       <div className="row">
-        <img
-          src={`${baseUrl}/class/getpic/pic/${qestion?.img}`}
-          onLoad={handleImageLoaded}
-          className="qestion-img pad"
-        />
+        {qestion?.questionImg && (
+          <img
+            src={`${baseUrl}/courses/images/${qestion?.questionImg}`}
+            onLoad={handleImageLoaded}
+            className="qestion-img pad"
+          />
+        )}
       </div>
 
       <div className="row between">
@@ -139,6 +140,7 @@ const Questions = ({
               {submit === "wrong" && (
                 <Button
                   icon={"redo"}
+                  size={"fa-xs"}
                   text={" wrong try again"}
                   className="btn black"
                   onClick={postSubmit}

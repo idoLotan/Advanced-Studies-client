@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { PostAuth } from "../axiosController";
+import { PostAuth } from "../axios";
+
 import Button from "../Layouts/Button/Button";
 
 export const SignUp = ({ handleSignIn, setLogin, onClose }) => {

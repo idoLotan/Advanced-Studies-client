@@ -6,12 +6,13 @@ import useClass from "../Hooks/useClass";
 import MyClasses from "../components/MyClasses";
 import axios from "axios";
 import { UserContext } from "../context/UserContext";
-import { baseUrl } from "../axiosController";
+import { baseUrl } from "../axios";
 import PopularCourses from "../components/PopularCourses";
 import { isLoggedIn } from "../auth/localStorage";
 
 const Home = () => {
-  const { choseClass, currntClass, toggledClass, setToggledClass } = useClass();
+  const { choseCourse, currentCourse, setToggledCourse, toggledCourse } =
+    useClass();
   const [recomendedClass, setRecomendedClass] = useState([]);
   const context = useContext(UserContext);
   const myClassesIds = context?.user?.myClass;
@@ -39,10 +40,12 @@ const Home = () => {
 
   return (
     <div className="home-page   fade-in">
-      {toggledClass ? (
+      <canvas id="canvas" width="500" height="500"></canvas>
+
+      {toggledCourse ? (
         <ClassPage
-          currntClass={currntClass}
-          setToggledClass={setToggledClass}
+          currentCourse={currentCourse}
+          setToggledCourse={setToggledCourse}
         />
       ) : (
         <>
@@ -62,10 +65,13 @@ const Home = () => {
             </div>
           </div>
           {islogged && (
-            <MyClasses choseClass={choseClass} myClassesIds={myClassesIds} />
+            <MyClasses choseCourse={choseCourse} myClassesIds={myClassesIds} />
           )}
 
-          <PopularCourses choseClass={choseClass} currntClass={currntClass} />
+          <PopularCourses
+            choseCourse={choseCourse}
+            currentCourse={currentCourse}
+          />
         </>
       )}
     </div>

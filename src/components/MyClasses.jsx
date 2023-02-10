@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useRef } from "react";
 import { useEffect, useState } from "react";
-import { baseUrl } from "../axiosController";
+import { baseUrl } from "../axios";
 import Card from "../Layouts/Card/Card";
 
 const MyClasses = ({ choseClass, myClassesIds }) => {

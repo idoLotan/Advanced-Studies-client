@@ -1,30 +1,31 @@
 import React from "react";
-import { baseUrl } from "../../axiosController";
+import { baseUrl } from "../../axios";
+import ClassPage from "../../pages/ClassPage";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import "./Card.css";
 
 const Card = ({
-  classes,
-  classTitle,
+  courses,
+  courseTitle,
   precent,
   isOpen,
-  choseClass,
-  currentClass = [""],
+  choseCourse,
+  currentCourse = [""],
 }) => {
-  console.log("currentClass?.iconImgUrl", currentClass?.iconImgUrl);
+  console.log("currentCourse?.iconImgUrl", currentCourse);
   return (
     <div
       className="card  pad"
       onClick={() => {
-        choseClass(currentClass._id, classes);
+        choseCourse(currentCourse._id, courses);
       }}
     >
       <div className="col between">
-        <div className="class-title  pad">{classTitle}</div>
+        <div className="class-title  pad">{courseTitle}</div>
 
-        {currentClass?.iconImgUrl && (
+        {currentCourse?.iconImgUrl && (
           <img
-            src={`${baseUrl}/courses/images/${currentClass?.iconImgUrl}`}
+            src={`${baseUrl}/courses/images/${currentCourse?.iconImgUrl}`}
             className="card-img pad"
           ></img>
         )}

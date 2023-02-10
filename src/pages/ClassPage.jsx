@@ -1,21 +1,24 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { baseUrl } from "../axiosController";
+import { baseUrl } from "../axios";
 import Questions from "../components/Questions";
 import EndgPage from "../components/EndPage";
 import Button from "../Layouts/Button/Button";
 import Loader from "../Layouts/Loader/Loader";
+import IntroPage from "../components/IntroPage";
 
-const ClassPage = ({ setToggledClass, currntClass }) => {
+const ClassPage = ({ currentCourse, setToggledCourse }) => {
   const [toggleQuestions, setToggleQuestions] = useState(true);
   const [count, setCount] = useState(0);
-  const [classQuestions, getClassQuestions] = useState();
+  const [courseQuestions, setCourseQuestions] = useState();
   const [qestion, setQuestion] = useState();
   const [previousBtnDisplay, setPreviousBtnDisplay] = useState("none");
   const [classEnded, setClassEnded] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  const img = currntClass.img ? currntClass.img : "";
+  const img = currentCourse?.pageImgUrl ? currentCourse?.pageImgUrl : "";
+
+  console.log("currentCourse", currentCourse);
 
   function handleImageLoaded() {
     setTimeout(() => {
@@ -29,7 +32,7 @@ const ClassPage = ({ setToggledClass, currntClass }) => {
     } else {
       setPreviousBtnDisplay("none");
     }
-    if (count >= classQuestions?.length) {
+    if (count >= courseQuestions?.length) {
       setClassEnded(true);
     }
   }, [count]);
@@ -40,15 +43,19 @@ const ClassPage = ({ setToggledClass, currntClass }) => {
 
   async function getQuestions() {
     try {
-      const classQuestionsTemp = [];
-      const resp = await axios.get(`${baseUrl}/class/${currntClass._id}`);
-      const questionsIds = await resp.data.data.question;
+      const questionsList = [];
+      const resp = await axios.get(`${baseUrl}/courses/${currentCourse._id}`);
+      const questionsIds = await resp.data.data.questions;
+      console.log("resp", questionsIds);
       for (let questionId of questionsIds) {
-        const temp = await axios.get(`${baseUrl}/class/question/${questionId}`);
+        const temp = await axios.get(
+          `${baseUrl}/courses/questions/${questionId}`
+        );
 
-        classQuestionsTemp.push(temp.data.data);
+        questionsList.push(temp.data.data);
       }
-      getClassQuestions(classQuestionsTemp);
+      console.log("questionsList", questionsList);
+      setCourseQuestions(questionsList);
     } catch (err) {
       console.log(err);
     }
@@ -58,63 +65,43 @@ const ClassPage = ({ setToggledClass, currntClass }) => {
     setToggleQuestions(!toggleQuestions);
   };
 
+  console.log(`${baseUrl}/courses/images/${img}`);
+
   return (
-    <div
-      className="class-page fade-in"
-      // style={{ display: isLoading ? "none" : "block" }}
-    >
+    <div className="class-page fade-in">
       <div className="row"> {isLoading && <Loader />}</div>
 
       {classEnded ? (
-        <EndgPage setToggledClass={setToggledClass} />
+        <EndgPage setToggledCourse={setToggledCourse} />
       ) : (
         <div
-          className="class-page-intro fade-in"
+          className="course-page fade-in"
           style={{ display: isLoading ? "none" : "block" }}
         >
           <Button
             icon={"chevron-left"}
             onClick={(toggledClass) => {
-              setToggledClass(!toggledClass);
+              setToggledCourse(!toggledClass);
             }}
             text="Back to Classes"
             className="back-btn"
           ></Button>
           {toggleQuestions ? (
-            <div className="">
-              <div className="class-page-content col ">
-                <div
-                  className="title"
-                  style={{ fontFamily: "Helvetica", fontWeight: 100 }}
-                >
-                  <h2>
-                    <b>{currntClass.className}</b>
-                  </h2>
-                </div>
-
-                <img
-                  src={`${baseUrl}/class/getpic/pic/${img}`}
-                  onLoad={handleImageLoaded}
-                  className="intro-img"
-                />
-
-                <div className="pad">
-                  <p>{currntClass.classText}</p>
-                </div>
-                <button className="pad btn black" onClick={handleQuestions}>
-                  Start Class
-                </button>
-              </div>
-            </div>
+            <IntroPage
+              img={img}
+              handleImageLoaded={handleImageLoaded}
+              currentCourse={currentCourse}
+              handleQuestions={handleQuestions}
+            ></IntroPage>
           ) : (
             <Questions
-              currntClass={currntClass}
+              currentCourse={currentCourse}
               setCount={setCount}
               count={count}
               qestion={qestion}
               setQuestion={setQuestion}
               previousBtnDisplay={previousBtnDisplay}
-              classQuestions={classQuestions}
+              courseQuestions={courseQuestions}
             ></Questions>
           )}
         </div>

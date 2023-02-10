@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./InputFile.css";
 
-const InputFile = ({ setFile }) => {
+const InputFile = ({ setFile, title }) => {
   const [fileLoaded, setFileLoaded] = useState("");
 
   const handleChange = (e) => {
@@ -13,6 +13,7 @@ const InputFile = ({ setFile }) => {
 
   return (
     <div className="input-file">
+      <h5>{title}</h5>
       <div className="input-file-content">
         <input
           type="file"

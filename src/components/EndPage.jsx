@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import image from "../assets/img/lamp-ending-page.png";
 
-const EndPage = ({ setToggledClass }) => {
+const EndPage = ({ setToggledCourse }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   function handleImageLoaded() {
@@ -27,8 +27,8 @@ const EndPage = ({ setToggledClass }) => {
         <div className="row right pad">
           <button
             className="btn black start-class-btn"
-            onClick={(toggledClass) => {
-              setToggledClass(!toggledClass);
+            onClick={(toggledCourse) => {
+              setToggledCourse(!toggledCourse);
             }}
           >
             continue
