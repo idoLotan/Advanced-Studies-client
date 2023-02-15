@@ -1,11 +1,11 @@
 import { Route, Routes } from "react-router-dom";
-
 import Header from "./components/Header";
+import { Login } from "./pages/Login";
 import { SecureRoute } from "./components/SecureRoute";
+import { SignUp } from "./pages/SignUp";
 import { UserProvider } from "./context/UserContext";
 import { Admin } from "./pages/Admin";
-
-import ClassPage from "./pages/ClassPage";
+import CoursePage from "./pages/CoursePage";
 import Courses from "./pages/Courses";
 import Home from "./pages/Home";
 
@@ -18,7 +18,9 @@ export const App = () => {
           <Route path="*" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/courses" element={<Courses />} />
-          <Route path="/class" element={<ClassPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signUp" element={<SignUp />} />
+          <Route path="/class" element={<CoursePage />} />
           <Route
             path="/admin"
             element={

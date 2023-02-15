@@ -19,7 +19,6 @@ export const PostAuth = async (url, data) => {
 
 export const postImage = async (imageType, image, id) => {
   try {
-    console.log("id, imageType, file", id, imageType, image);
     const formData = new FormData();
     formData.append("image", image);
     const resp = await axios.post(

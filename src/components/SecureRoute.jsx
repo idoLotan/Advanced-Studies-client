@@ -18,7 +18,6 @@ export const SecureRoute = ({ children }) => {
 
   async function display() {
     if (!token) {
-      console.log("token", token);
       nav("/home");
     } else {
       await getUser(userData);

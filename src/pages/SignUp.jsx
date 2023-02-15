@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { PostAuth } from "../axios";
-
 import Button from "../Layouts/Button/Button";
 
 export const SignUp = ({ handleSignIn, setLogin, onClose }) => {
@@ -39,7 +38,7 @@ export const SignUp = ({ handleSignIn, setLogin, onClose }) => {
   };
 
   return (
-    <div className="sign-up">
+    <form className="sign-up">
       <div className="content">
         <div className="title  row pad">
           <h3>Sign Up</h3>
@@ -89,6 +88,6 @@ export const SignUp = ({ handleSignIn, setLogin, onClose }) => {
         </div>
         <div className="errorUser">{renderError()}</div>
       </div>
-    </div>
+    </form>
   );
 };

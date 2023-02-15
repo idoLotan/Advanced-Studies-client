@@ -1,20 +1,20 @@
-import { useEffect } from "react";
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useEffect, useState, useReducer } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/img/atom.png";
 import { getToken, getUserData, logout } from "../auth/localStorage";
 import Button from "../Layouts/Button/Button";
 import Modal from "../Layouts/Modal/Modal";
 import Navbar from "./Navbar";
-import { SignUp } from "./SignUp";
-import { useReducer } from "react";
-import { Login } from "./Login";
+import { SignUp } from "../pages/SignUp";
+import { Login } from "../pages/Login";
 
 const Header = () => {
   const [isLogin, setLogin] = useState(false);
   const [isAdmin, setAdmin] = useState(false);
   const [isShowing, setIsShowing] = useState(false);
   const token = getToken();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     permission();

@@ -9,7 +9,7 @@ const Navbar = () => {
     navigate("/home");
   }, [navigate]);
 
-  const handleClasses = useCallback(() => {
+  const handleCourses = useCallback(() => {
     navigate("/courses");
   }, [navigate]);
 
@@ -26,7 +26,7 @@ const Navbar = () => {
           icon={"paste"}
           text={"Courses"}
           border={location.pathname === "/courses" ? "2px solid black" : ""}
-          onClick={handleClasses}
+          onClick={handleCourses}
         />
       </div>
     </div>

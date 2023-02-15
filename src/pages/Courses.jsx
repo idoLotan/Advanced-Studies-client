@@ -3,13 +3,13 @@ import { useState } from "react";
 import { baseUrl } from "../axios";
 import PopularCourses from "../components/PopularCourses";
 import Search from "../components/Search";
-import useClass from "../Hooks/useClass";
+import useCourse from "../Hooks/useCourse";
 import SearchBar from "../Layouts/SearchBar/SearchBar";
-import ClassPage from "./ClassPage";
+import CoursePage from "./CoursePage";
 
 const Courses = () => {
   const { choseCourse, currentCourse, toggledCourse, setToggledCourse } =
-    useClass();
+    useCourse();
 
   const [searchInput, setSearchInput] = useState("");
   const [searchClasses, setSearchClasses] = useState([]);
@@ -40,7 +40,7 @@ const Courses = () => {
       <div className="classes-page-section col pad">
         {toggledCourse ? (
           <>
-            <ClassPage
+            <CoursePage
               currentCourse={currentCourse}
               setToggledCourse={setToggledCourse}
             />

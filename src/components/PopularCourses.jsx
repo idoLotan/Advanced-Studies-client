@@ -6,8 +6,6 @@ import Card from "../Layouts/Card/Card";
 const PopularCourses = ({ choseCourse }) => {
   const [popCourses, setPopCourses] = useState([]);
 
-  console.log("popCourses", popCourses);
-
   useEffect(() => {
     getPopularCourses();
     console.log(popCourses);
@@ -15,9 +13,7 @@ const PopularCourses = ({ choseCourse }) => {
 
   async function getPopularCourses() {
     try {
-      console.log(`${baseUrl}/courses/popular`);
       const temp = await axios.get(`${baseUrl}/courses/popular`);
-      console.log(temp);
       setPopCourses(temp.data.data);
     } catch (err) {
       console.log(err);
@@ -27,7 +23,7 @@ const PopularCourses = ({ choseCourse }) => {
   return (
     <div className="popular-classes ">
       <div className="cards-title">Popular Classes</div>
-      <div className="classes ">
+      <div className="courses row left">
         {popCourses?.map(
           (course) =>
             course && (

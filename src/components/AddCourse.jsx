@@ -20,8 +20,6 @@ export const AddCourse = () => {
   //   return id;
   // }
 
-  console.log("pageImage,cardImage", pageImage, cardImage);
-
   async function saveCourse() {
     let data = {
       courseName: courseName,
@@ -32,12 +30,10 @@ export const AddCourse = () => {
         `${baseUrl}/courses/addCourse/${fieldName}`,
         data
       );
-      console.log("resp", resp);
       const id = await resp.data._id;
       postImage("card", cardImage, id);
       postImage("page", pageImage, id);
       const itemAdded = resp.data._id;
-      console.log("itemAdded", itemAdded);
       return setMessage(itemAdded ? "course added!" : "course already exist");
     } catch (err) {
       console.error(err);
@@ -45,6 +41,7 @@ export const AddCourse = () => {
   }
   return (
     <div className="add-course pad fade-in">
+      <h2 className="pad">Add new Course</h2>
       <div className="row left">
         <div className=" pad">
           <div className="add-course-content ">

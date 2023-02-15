@@ -4,7 +4,6 @@ import { baseUrl } from "../axios";
 import { UserContext } from "../context/UserContext";
 import Button from "../Layouts/Button/Button";
 import ButtonCol from "../Layouts/Button/ButtonCol";
-import Animation from "./Animation";
 
 const Questions = ({
   setCount,
@@ -18,7 +17,7 @@ const Questions = ({
   const [styles, setStyles] = useState("");
   const [answerSubmited, setAnswerSubmited] = useState(false);
   const [disabled, setDisabled] = useState(false);
-  const [animation, setAnimation] = useState(false);
+
   const [isLoading, setIsLoading] = useState(true);
   const context = useContext(UserContext);
   const qestion = courseQuestions[count];
@@ -43,13 +42,18 @@ const Questions = ({
   }
 
   async function submitAnswer() {
+    console.log("fff");
     try {
       const token = localStorage.getItem("Token");
+      const user = JSON.parse(localStorage.getItem("personObject"));
+      console.log(`${baseUrl}/courses/login/submitAnswer/${qestion._id}`);
+      console.log("user._id, currentCourse._id", user._id, currentCourse._id);
       if (token) {
         const resp = await axios.post(
-          `${baseUrl}/class/login/submitAnswer/${qestion._id}`,
+          `${baseUrl}/courses/login/submitAnswer/${qestion._id}`,
           {
-            classId: currentCourse._id,
+            courseId: currentCourse._id,
+            userId: user._id,
           },
           {
             headers: {
@@ -57,8 +61,8 @@ const Questions = ({
             },
           }
         );
+        console.log("resp", resp);
       }
-      context.getUser();
     } catch (err) {
       console.log(err);
     }
@@ -132,7 +136,6 @@ const Questions = ({
           ))}
         </div>
       </div>
-      <div className="row left"> animation</div>
       <div className="submit-btn col right">
         {answerSubmited ? (
           <>
@@ -155,17 +158,7 @@ const Questions = ({
         ) : (
           <>
             <div className="row between" style={{ width: "100%" }}>
-              <div className="col pad">
-                <div
-                  style={{ width: "50px" }}
-                  className="btn row "
-                  onClick={() => {
-                    setAnimation(!animation);
-                  }}
-                >
-                  <i class="far fa-lightbulb"></i>
-                </div>
-              </div>
+              <div className="col pad"></div>
               <div className="row right">
                 <button
                   className="btn black"
@@ -184,13 +177,6 @@ const Questions = ({
               </div>
             </div>
           </>
-        )}
-        {animation && (
-          <div id="animation" className="animation fade-in">
-            <div className=""></div>
-
-            <Animation setAnimation={setAnimation}></Animation>
-          </div>
         )}
       </div>
     </div>

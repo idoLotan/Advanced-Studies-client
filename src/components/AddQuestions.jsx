@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { baseUrl, postImage } from "../axios";
+import { baseUrl } from "../axios";
 import InputFile from "../Layouts/InputFile/InputFile";
 
 export const AddQuestions = () => {
@@ -20,7 +20,6 @@ export const AddQuestions = () => {
 
   async function postImage(imageType, id, file) {
     try {
-      console.log("id, imageType, file", id, imageType, file);
       const formData = new FormData();
       formData.append("image", file);
       const resp = await axios.post(
@@ -49,9 +48,7 @@ export const AddQuestions = () => {
         `${baseUrl}/courses/questions/${courseName}`,
         data
       );
-
       const id = resp.data._id;
-      console.log("resp", resp);
       postImage("question", id, file);
       setMessage(id ? "question added!" : "item already exist!");
     } catch (err) {
@@ -62,7 +59,7 @@ export const AddQuestions = () => {
   return (
     <div className="add-question fade-in">
       <div className="pad">
-        <h3>Add new questions </h3>
+        <h2>Add new questions </h2>
       </div>
       <div className="row left pad">
         <InputFile setFile={setFile} title={"question image"}></InputFile>

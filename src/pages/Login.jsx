@@ -17,8 +17,6 @@ export const Login = ({ onClose }) => {
     };
 
     const resp = await axios.post(`${baseUrl}/users/login`, userData);
-
-    console.log("resp", resp);
     const token = resp.data.data.access_token;
     const userObj = resp.data.data.user;
     storeToken(token);
@@ -35,7 +33,7 @@ export const Login = ({ onClose }) => {
   };
 
   return (
-    <div className="login">
+    <form className="login">
       <div className="content">
         <div className="title">
           <h3>Login</h3>
@@ -54,7 +52,11 @@ export const Login = ({ onClose }) => {
             ref={passwordRef}
           />
         </div>
-        <Button icon={"times"} className="close-btn" onClick={onClose}></Button>
+        <Button
+          icon={"times"}
+          className="close-btn pad"
+          onClick={onClose}
+        ></Button>
         <div className="row">
           <button className="btn black " onClick={handleSubmit}>
             Login
@@ -62,6 +64,6 @@ export const Login = ({ onClose }) => {
         </div>
         <div className="errorUser">{renderError()}</div>
       </div>
-    </div>
+    </form>
   );
 };

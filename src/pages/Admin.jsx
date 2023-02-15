@@ -31,15 +31,13 @@ export const Admin = () => {
       ></Sidebar>
       <div className="admin-page-form">
         <div className="row between">
-          <h2 className="pad">Add Page</h2>
-          <div className="pad"></div>
           <div style={{ width: "100px" }}></div>
         </div>
 
         {state.option === "field" && (
           <>
             <div className="col left">
-              <h4 className="pad">Add new field</h4>
+              {/* <h2 className="pad">Add new field</h2> */}
             </div>
             <AddField
               setFieldName={setFieldName}
@@ -51,8 +49,6 @@ export const Admin = () => {
         )}
         {state.option === "course" && (
           <div>
-            <h4 className="pad">Add new class</h4>
-
             <AddCourse
               setFieldName={setFieldName}
               fieldName={fieldName}

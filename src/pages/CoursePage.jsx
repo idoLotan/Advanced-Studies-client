@@ -7,7 +7,7 @@ import Button from "../Layouts/Button/Button";
 import Loader from "../Layouts/Loader/Loader";
 import IntroPage from "../components/IntroPage";
 
-const ClassPage = ({ currentCourse, setToggledCourse }) => {
+const CoursePage = ({ currentCourse, setToggledCourse }) => {
   const [toggleQuestions, setToggleQuestions] = useState(true);
   const [count, setCount] = useState(0);
   const [courseQuestions, setCourseQuestions] = useState();
@@ -18,13 +18,15 @@ const ClassPage = ({ currentCourse, setToggledCourse }) => {
 
   const img = currentCourse?.pageImgUrl ? currentCourse?.pageImgUrl : "";
 
-  console.log("currentCourse", currentCourse);
-
   function handleImageLoaded() {
     setTimeout(() => {
       setIsLoading(false);
     }, 1000);
   }
+
+  useEffect(() => {
+    getQuestions();
+  }, []);
 
   useEffect(() => {
     if (count > 0) {
@@ -36,10 +38,6 @@ const ClassPage = ({ currentCourse, setToggledCourse }) => {
       setClassEnded(true);
     }
   }, [count]);
-
-  useEffect(() => {
-    getQuestions();
-  }, []);
 
   async function getQuestions() {
     try {
@@ -83,8 +81,8 @@ const ClassPage = ({ currentCourse, setToggledCourse }) => {
             onClick={(toggledClass) => {
               setToggledCourse(!toggledClass);
             }}
-            text="Back to Classes"
-            className="back-btn"
+            text="Back to Courses"
+            className="back-btn pad"
           ></Button>
           {toggleQuestions ? (
             <IntroPage
@@ -110,4 +108,4 @@ const ClassPage = ({ currentCourse, setToggledCourse }) => {
   );
 };
 
-export default ClassPage;
+export default CoursePage;

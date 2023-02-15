@@ -1,6 +1,6 @@
 import React from "react";
 import { baseUrl } from "../../axios";
-import ClassPage from "../../pages/ClassPage";
+import coursePage from "../../pages/CoursePage";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import "./Card.css";
 
@@ -12,7 +12,7 @@ const Card = ({
   choseCourse,
   currentCourse = [""],
 }) => {
-  console.log("currentCourse?.iconImgUrl", currentCourse);
+  console.log("currentCourse", currentCourse._id);
   return (
     <div
       className="card  pad"

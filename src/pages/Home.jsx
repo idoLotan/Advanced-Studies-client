@@ -1,18 +1,18 @@
 import "../assets/index.css";
 import homePagePhoto from "../assets/img/science.png";
 import { useContext, useEffect, useState } from "react";
-import ClassPage from "./ClassPage";
-import useClass from "../Hooks/useClass";
-import MyClasses from "../components/MyClasses";
+import CoursePage from "./CoursePage";
+import MyCourses from "../components/MyCourses";
 import axios from "axios";
 import { UserContext } from "../context/UserContext";
 import { baseUrl } from "../axios";
 import PopularCourses from "../components/PopularCourses";
 import { isLoggedIn } from "../auth/localStorage";
+import useCourse from "../Hooks/useCourse";
 
 const Home = () => {
   const { choseCourse, currentCourse, setToggledCourse, toggledCourse } =
-    useClass();
+    useCourse();
   const [recomendedClass, setRecomendedClass] = useState([]);
   const context = useContext(UserContext);
   const myClassesIds = context?.user?.myClass;
@@ -40,16 +40,14 @@ const Home = () => {
 
   return (
     <div className="home-page   fade-in">
-      <canvas id="canvas" width="500" height="500"></canvas>
-
       {toggledCourse ? (
-        <ClassPage
+        <CoursePage
           currentCourse={currentCourse}
           setToggledCourse={setToggledCourse}
         />
       ) : (
         <>
-          <div className="welcome-section row between ">
+          <div className="welcome-section row between">
             <h2 className="col left ">
               {!islogged && <b>Wellcom to Advanced Studies!</b>}
 
@@ -64,14 +62,14 @@ const Home = () => {
               <img src={homePagePhoto} className="homePagePhoto"></img>
             </div>
           </div>
-          {islogged && (
-            <MyClasses choseCourse={choseCourse} myClassesIds={myClassesIds} />
-          )}
 
           <PopularCourses
             choseCourse={choseCourse}
             currentCourse={currentCourse}
           />
+          {islogged && (
+            <MyCourses choseCourse={choseCourse} myClassesIds={myClassesIds} />
+          )}
         </>
       )}
     </div>
