@@ -1,40 +1,43 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./SearchBar.css";
 
-const SearchBar = ({
-  setSearchInput,
-  searchInput,
-  onSearch,
-  setToggledResult,
-}) => {
-  let timer;
-  const debounce = (arg) => {
-    clearTimeout(timer);
-    setSearchInput(arg);
-    timer = setTimeout(() => {
-      onSearch(searchInput);
-      setToggledResult(true);
-    }, 2000);
-  };
+const SearchBar = ({ onSearch }) => {
+  const searchRef = useRef();
+
+  function handler() {
+    console.log(searchRef.current.value);
+    onSearch(searchRef.current.value);
+  }
+
+  function debounce(f, ms) {
+    let timeout;
+
+    return function () {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+      timeout = setTimeout(() => {
+        f();
+      }, ms);
+    };
+  }
 
   return (
     <div className="search-bar-container ">
       <form role="form ">
         <div className="form-group">
           <input
-            onKeyUp={(e) => {
-              debounce(e.target.value);
-            }}
+            onKeyUp={debounce(handler, 500)}
+            ref={searchRef}
             type="text"
-            className="form-control empty "
+            className="form-control "
             id="iconified"
+            placeholder="search courses..."
           ></input>
 
           <i
             className="fal fa-search  fa-2x search-icon"
-            onClick={() => {
-              onSearch(searchInput);
-            }}
+            onClick={debounce(handler, 500)}
           ></i>
         </div>
       </form>

@@ -1,7 +1,6 @@
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { baseUrl } from "../axios";
-import { UserContext } from "../context/UserContext";
 import Button from "../Layouts/Button/Button";
 import ButtonCol from "../Layouts/Button/ButtonCol";
 
@@ -17,12 +16,9 @@ const Questions = ({
   const [styles, setStyles] = useState("");
   const [answerSubmited, setAnswerSubmited] = useState(false);
   const [disabled, setDisabled] = useState(false);
-
   const [isLoading, setIsLoading] = useState(true);
-  const context = useContext(UserContext);
-  const qestion = courseQuestions[count];
 
-  console.log("qestion", qestion);
+  const qestion = courseQuestions[count];
 
   function handleImageLoaded() {
     setIsLoading(false);
@@ -42,12 +38,9 @@ const Questions = ({
   }
 
   async function submitAnswer() {
-    console.log("fff");
     try {
       const token = localStorage.getItem("Token");
       const user = JSON.parse(localStorage.getItem("personObject"));
-      console.log(`${baseUrl}/courses/login/submitAnswer/${qestion._id}`);
-      console.log("user._id, currentCourse._id", user._id, currentCourse._id);
       if (token) {
         const resp = await axios.post(
           `${baseUrl}/courses/login/submitAnswer/${qestion._id}`,
@@ -61,36 +54,28 @@ const Questions = ({
             },
           }
         );
-        console.log("resp", resp);
       }
     } catch (err) {
       console.log(err);
     }
   }
 
-  function postSubmit() {
-    setSubmit(false);
-    setAnswerSubmited(false);
-    setDisabled(false);
-    setSubmit("");
-  }
-
-  function counter() {
-    setCount(count + 1);
-    setSubmit(false);
+  function reset() {
     setAnswerSubmited(false);
     setDisabled(false);
     setSubmit("");
     setChosenAnswer("");
   }
 
-  function goBack() {
+  function nextQuestion() {
+    setCount((c) => c + 1);
+    reset();
+  }
+
+  function previousQuestion() {
     if (count > 0) {
-      setCount(count - 1);
-      setSubmit(false);
-      setAnswerSubmited(false);
-      setSubmit("");
-      setChosenAnswer("");
+      setCount((c) => c - 1);
+      reset();
     }
   }
 
@@ -104,7 +89,10 @@ const Questions = ({
   };
 
   return (
-    <div className="class-page-content fade-in">
+    <div
+      className="class-page-content fade-in"
+      style={{ display: qestion?.questionImg && isLoading ? "none" : "block" }}
+    >
       <div className="row">
         {qestion?.questionImg && (
           <img
@@ -144,13 +132,13 @@ const Questions = ({
                 <Button
                   icon={"redo"}
                   size={"fa-xs"}
-                  text={" wrong try again"}
+                  text={"wrong try again"}
                   className="btn black"
-                  onClick={postSubmit}
+                  onClick={reset}
                 ></Button>
               )}
 
-              <button className="btn black" onClick={counter}>
+              <button className="btn black" onClick={nextQuestion}>
                 Next qestion
               </button>
             </div>
@@ -162,7 +150,7 @@ const Questions = ({
               <div className="row right">
                 <button
                   className="btn black"
-                  onClick={goBack}
+                  onClick={previousQuestion}
                   style={{ display: previousBtnDisplay }}
                 >
                   previous qestion

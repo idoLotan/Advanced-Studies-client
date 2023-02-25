@@ -34,3 +34,65 @@ export const postImage = async (imageType, image, id) => {
     console.log(err);
   }
 };
+
+export const getPopularCourses = async () => {
+  try {
+    const temp = await axios.get(`${baseUrl}/courses/popular`);
+    const PopCourses = temp.data.data;
+    return PopCourses;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getPhysicsCourses = async () => {
+  try {
+    const temp = await axios.get(`${baseUrl}/courses/fields/phyiscs`);
+    const PopCourses = temp.data.data;
+    return PopCourses;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getMyCourses = async () => {
+  const user = JSON.parse(localStorage.getItem("personObject"));
+  const myCoursesIds = user.courses;
+  let tempCourseList = [];
+  try {
+    for (let key in myCoursesIds) {
+      let temp = await axios.get(`${baseUrl}/courses/${key}`);
+      tempCourseList.push(temp?.data?.data);
+    }
+    return tempCourseList;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getCoursesByField = async (fieldName) => {
+  try {
+    const response = await axios.get(
+      `${baseUrl}/courses/fields/name?fieldName=${fieldName}`
+    );
+    console.log("response", response.data.course);
+    const coursesIds = response.data.course.splice(0, 4);
+
+    let courseList = [];
+    console.log("coursesIds", coursesIds);
+
+    coursesIds.forEach(async (id) => {
+      let temp = await axios.get(`${baseUrl}/courses/${id}`);
+      courseList.push(temp?.data.data);
+    });
+
+    return courseList;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getPhyicsCourses = async () => {
+  const phyicsCourses = await getCoursesByField("phyics");
+  return phyicsCourses;
+};

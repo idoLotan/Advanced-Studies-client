@@ -2,41 +2,39 @@ import "../assets/index.css";
 import homePagePhoto from "../assets/img/science.png";
 import { useContext, useEffect, useState } from "react";
 import CoursePage from "./CoursePage";
-import MyCourses from "../components/MyCourses";
-import axios from "axios";
 import { UserContext } from "../context/UserContext";
-import { baseUrl } from "../axios";
-import PopularCourses from "../components/PopularCourses";
+import {
+  getCoursesByField,
+  getMyCourses,
+  getPhyicsCourses,
+  getPopularCourses,
+} from "../axios";
 import { isLoggedIn } from "../auth/localStorage";
 import useCourse from "../Hooks/useCourse";
+import Courses from "../components/Courses";
+import { getCourses, getUser } from "../helper";
 
 const Home = () => {
   const { choseCourse, currentCourse, setToggledCourse, toggledCourse } =
     useCourse();
-  const [recomendedClass, setRecomendedClass] = useState([]);
-  const context = useContext(UserContext);
-  const myClassesIds = context?.user?.myClass;
-  const islogged = isLoggedIn();
+
+  const [popCourses, setPopCourses] = useState([]);
+  const [myCourses, setMyCourses] = useState([]);
+  const [physicsCourses, setPhysicsCourses] = useState([]);
+  const [myCoursesIds, setMyCoursesIds] = useState([]);
 
   useEffect(() => {
-    getRecomendedClasses();
+    const user = getUser();
+    if (user) {
+      setMyCoursesIds(user.courses);
+      getCourses(getMyCourses, setMyCourses);
+    }
+    getCourses(getPopularCourses, setPopCourses);
+    getCourses(getPhyicsCourses, setPhysicsCourses);
   }, []);
 
-  const getRecomendedClasses = async () => {
-    const token = localStorage.getItem("Token");
-
-    try {
-      const resp = await axios.get(`${baseUrl}/users/recommended`, {
-        headers: {
-          Authorization: token,
-        },
-      });
-
-      setRecomendedClass(resp.data.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const context = useContext(UserContext);
+  const islogged = isLoggedIn();
 
   return (
     <div className="home-page   fade-in">
@@ -62,13 +60,33 @@ const Home = () => {
               <img src={homePagePhoto} className="homePagePhoto"></img>
             </div>
           </div>
-
+          {/* 
           <PopularCourses
             choseCourse={choseCourse}
             currentCourse={currentCourse}
+          /> */}
+          <Courses
+            courses={popCourses}
+            title={"Popular Courses"}
+            choseCourse={choseCourse}
+            myCoursesIds={""}
           />
+          <Courses
+            courses={physicsCourses}
+            title={"physicsCourses"}
+            choseCourse={choseCourse}
+            myCoursesIds={""}
+          />
+
           {islogged && (
-            <MyCourses choseCourse={choseCourse} myClassesIds={myClassesIds} />
+            // <MyCourses choseCourse={choseCourse} />
+            <Courses
+              courses={myCourses}
+              title={"my Courses"}
+              choseCourse={choseCourse}
+              myCoursesIds={myCoursesIds}
+              isOpen={true}
+            />
           )}
         </>
       )}

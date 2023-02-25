@@ -6,7 +6,7 @@ import { SignUp } from "./pages/SignUp";
 import { UserProvider } from "./context/UserContext";
 import { Admin } from "./pages/Admin";
 import CoursePage from "./pages/CoursePage";
-import Courses from "./pages/Courses";
+import CoursesPage from "./pages/CoursesPage";
 import Home from "./pages/Home";
 
 export const App = () => {
@@ -17,7 +17,7 @@ export const App = () => {
         <Routes>
           <Route path="*" element={<Home />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/courses" element={<Courses />} />
+          <Route path="/courses" element={<CoursesPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/class" element={<CoursePage />} />

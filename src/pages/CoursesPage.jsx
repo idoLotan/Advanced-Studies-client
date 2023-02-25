@@ -1,37 +1,45 @@
 import axios from "axios";
-import { useState } from "react";
-import { baseUrl } from "../axios";
-import PopularCourses from "../components/PopularCourses";
+import { useEffect, useState } from "react";
+import { baseUrl, getPopularCourses } from "../axios";
+import Courses from "../components/Courses";
+
 import Search from "../components/Search";
+import { getCourses } from "../helper";
 import useCourse from "../Hooks/useCourse";
 import SearchBar from "../Layouts/SearchBar/SearchBar";
 import CoursePage from "./CoursePage";
 
-const Courses = () => {
+const CoursesPage = () => {
   const { choseCourse, currentCourse, toggledCourse, setToggledCourse } =
     useCourse();
 
-  const [searchInput, setSearchInput] = useState("");
-  const [searchClasses, setSearchClasses] = useState([]);
+  const [searchCourses, setSearchCourses] = useState([]);
   const [loader, setLoader] = useState(false);
   const [toggledResult, setToggledResult] = useState(false);
+  const [popCourses, setPopCourses] = useState([]);
 
-  const onSearch = async () => {
+  useEffect(() => {
+    getCourses(getPopularCourses, setPopCourses);
+  }, []);
+
+  const onSearch = async (searchInput) => {
     setLoader(true);
     try {
       const response = await axios.get(
         `${baseUrl}/courses/search/?text=${searchInput}`
       );
-      setSearchClasses(response);
+      if (response.data.status == 404) {
+        setSearchCourses([]);
+        setToggledResult(false);
+        setLoader(false);
+        return;
+      }
+      setSearchCourses(response.data);
+      setToggledResult(true);
     } catch (err) {
       console.log(err);
     }
-    setTimeout(
-      function () {
-        setLoader(false);
-      },
-      [500]
-    );
+    setLoader(false);
   };
 
   return (
@@ -47,29 +55,23 @@ const Courses = () => {
           </>
         ) : (
           <>
-            <h3 className="col pad ">
-              <b>
-                <div>Search </div>
-                <div>Classes</div>
-              </b>
-            </h3>
-            <SearchBar
-              setSearchInput={setSearchInput}
-              searchInput={searchInput}
-              onSearch={onSearch}
-              setToggledResult={setToggledResult}
-            />
+            <SearchBar onSearch={onSearch} />
+
             {toggledResult ? (
               <Search
-                searchClasses={searchClasses}
+                searchCourses={searchCourses}
                 choseCourse={choseCourse}
                 currntClass={currentCourse}
               ></Search>
             ) : (
-              <PopularCourses
-                choseCourse={choseCourse}
-                currentCourse={currentCourse}
-              />
+              <>
+                <Courses
+                  courses={popCourses}
+                  title={"Popular Courses"}
+                  choseCourse={choseCourse}
+                  myCoursesIds={""}
+                />
+              </>
             )}
           </>
         )}
@@ -78,4 +80,4 @@ const Courses = () => {
   );
 };
 
-export default Courses;
+export default CoursesPage;

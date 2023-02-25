@@ -36,9 +36,7 @@ export const Admin = () => {
 
         {state.option === "field" && (
           <>
-            <div className="col left">
-              {/* <h2 className="pad">Add new field</h2> */}
-            </div>
+            <div className="col left"></div>
             <AddField
               setFieldName={setFieldName}
               fieldName={fieldName}
