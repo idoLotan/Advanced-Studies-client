@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import image from "../assets/img/lamp-ending-page.png";
 
-const EndPage = ({ setToggledCourse }) => {
+const EndPage = ({ setToggledCourse, currentCourse }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   function handleImageLoaded() {
@@ -16,7 +16,7 @@ const EndPage = ({ setToggledCourse }) => {
         <div className="row">
           <h2 className="end-page-title pad">Well Done!</h2>
         </div>
-        <p className="row ">{`you finish the ${"class"} class, keep up the good work! `}</p>
+        <p className="row ">{`you finish the ${currentCourse.courseName} course, keep up the good work! `}</p>
         <div className="row pad">
           <img
             src={image}

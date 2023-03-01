@@ -4,7 +4,7 @@ const UserData = "personObject";
 
 export const storeToken = (token) => localStorage.setItem(TOKEN, token);
 export const storeUserData = (userData) => {
-  var personObject = userData;
+  let personObject = userData;
   localStorage.setItem(UserData, JSON.stringify(personObject));
 };
 
@@ -16,14 +16,11 @@ export const logout = () => {
 export const getToken = () => localStorage.getItem(TOKEN);
 
 export const getUserData = () => {
-  var jsonString = localStorage.getItem("personObject");
-  var retrievedObject = JSON.parse(jsonString);
+  let jsonString = localStorage.getItem("personObject");
+  let retrievedObject = JSON.parse(jsonString);
   return retrievedObject;
 };
 
 export const isLoggedIn = () => {
   return getToken() ? true : false;
 };
-// export const isLoggedIn = ()=>{
-//     return getToken() ? true:false
-// }

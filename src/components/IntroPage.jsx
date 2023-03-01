@@ -24,12 +24,14 @@ const IntroPage = ({
           className="intro-img"
         />
 
-        <div className="pad">
+        <div className="content">
           <p>{currentCourse?.courseText}</p>
+          <div className="row">
+            <button className="btn black" onClick={handleQuestions}>
+              Start Class
+            </button>
+          </div>
         </div>
-        <button className="pad btn black" onClick={handleQuestions}>
-          Start Class
-        </button>
       </div>
     </div>
   );

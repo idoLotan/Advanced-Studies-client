@@ -1,8 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { baseUrl, getPopularCourses } from "../axios";
+import {
+  baseUrl,
+  getChemistryCourses,
+  getPhyicsCourses,
+  getPopularCourses,
+} from "../axios";
 import Courses from "../components/Courses";
-
 import Search from "../components/Search";
 import { getCourses } from "../helper";
 import useCourse from "../Hooks/useCourse";
@@ -17,10 +21,19 @@ const CoursesPage = () => {
   const [loader, setLoader] = useState(false);
   const [toggledResult, setToggledResult] = useState(false);
   const [popCourses, setPopCourses] = useState([]);
+  const [physicsCourses, setPhysicsCourses] = useState([]);
+  const [chemistryCourses, setChemistryCourses] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     getCourses(getPopularCourses, setPopCourses);
+    getCourses(getPhyicsCourses, setPhysicsCourses);
+    getCourses(getChemistryCourses, setChemistryCourses);
   }, []);
+
+  function handleImageLoaded() {
+    setIsLoading(false);
+  }
 
   const onSearch = async (searchInput) => {
     setLoader(true);
@@ -43,7 +56,10 @@ const CoursesPage = () => {
   };
 
   return (
-    <div className="classes-page  fade-in">
+    <div
+      className="classes-page  "
+      style={{ display: isLoading ? "none" : "block" }}
+    >
       {loader && <span class="loader"></span>}
       <div className="classes-page-section col pad">
         {toggledCourse ? (
@@ -64,14 +80,28 @@ const CoursesPage = () => {
                 currntClass={currentCourse}
               ></Search>
             ) : (
-              <>
+              <div
+                // style={{ display: isLoading ? "none" : "block" }}
+                className="fade-in"
+              >
                 <Courses
+                  courses={physicsCourses}
+                  title={"Physics Courses"}
+                  choseCourse={choseCourse}
+                  handleImageLoaded={handleImageLoaded}
+                />
+                <Courses
+                  courses={chemistryCourses}
+                  title={"chemistry Courses"}
+                  choseCourse={choseCourse}
+                />
+                {/* <Courses
                   courses={popCourses}
                   title={"Popular Courses"}
                   choseCourse={choseCourse}
                   myCoursesIds={""}
-                />
-              </>
+                /> */}
+              </div>
             )}
           </>
         )}

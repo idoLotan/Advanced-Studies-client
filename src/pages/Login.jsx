@@ -3,7 +3,7 @@ import { baseUrl } from "../axios";
 import Button from "../Layouts/Button/Button";
 import { useRef } from "react";
 import axios from "axios";
-import { storeToken, storeUserData } from "../auth/localStorage";
+import { storeToken, storeUserData } from "../auth/auth";
 
 export const Login = ({ onClose }) => {
   const emailRef = useRef();

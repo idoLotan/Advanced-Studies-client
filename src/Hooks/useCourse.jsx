@@ -11,7 +11,6 @@ const useCourse = () => {
       const userJsonObject = localStorage.getItem("personObject");
       const userObject = JSON.parse(userJsonObject);
       const userId = userObject._id;
-      console.log("userId", userId);
       const rateResponse = await axios.post(
         `${baseUrl}/courses/login/rate/${userId}`,
         {

@@ -1,4 +1,5 @@
 export const getCourses = async (getCourses, setCourses) => {
+  console.log("getCourses, setCourses", getCourses, setCourses);
   const courses = await getCourses();
   console.log("courses", courses);
   setCourses(courses);

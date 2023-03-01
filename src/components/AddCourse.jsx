@@ -11,6 +11,10 @@ export const AddCourse = () => {
   const [cardImage, setCardImage] = useState([]);
   const [pageImage, setPageImage] = useState([]);
   const courseTextRef = useRef();
+  const text1stRef = useRef();
+  const text2ndRef = useRef();
+  const text3rdRef = useRef();
+  const text4thRef = useRef();
 
   // async function getCourseIdByName() {
   //   const resp = await axios.get(
@@ -24,12 +28,19 @@ export const AddCourse = () => {
     let data = {
       courseName: courseName,
       courseText: courseTextRef.current.value,
+      courseContent: [
+        text1stRef.current.value,
+        text2ndRef.current.value,
+        text3rdRef.current.value,
+        text4thRef.current.value,
+      ],
     };
     try {
       const resp = await axios.post(
         `${baseUrl}/courses/addCourse/${fieldName}`,
         data
       );
+      console.log("resp", resp);
       const id = await resp.data._id;
       postImage("card", cardImage, id);
       postImage("page", pageImage, id);
@@ -70,6 +81,28 @@ export const AddCourse = () => {
         </div>
       </div>
       <textarea type="text" placeholder="Course Text..." ref={courseTextRef} />
+      <textarea
+        type="text"
+        placeholder="Course Content 1st paragraph"
+        ref={text1stRef}
+      />
+
+      <textarea
+        type="text"
+        placeholder="Course Content 2nd paragraph"
+        ref={text2ndRef}
+      />
+      <textarea
+        type="text"
+        placeholder="Course Content 3rd paragraph"
+        ref={text3rdRef}
+      />
+      <textarea
+        type="text"
+        placeholder="Course Content 4th paragraph"
+        ref={text4thRef}
+      />
+
       <div className="row right pad">
         <button className="btn black" onClick={saveCourse}>
           Add

@@ -5,6 +5,7 @@ import ProgressBar from "../ProgressBar/ProgressBar";
 import "./Card.css";
 
 const Card = ({
+  handleImageLoaded,
   courses,
   courseTitle,
   precent,
@@ -12,7 +13,6 @@ const Card = ({
   choseCourse,
   currentCourse = [""],
 }) => {
-  console.log("currentCourse", currentCourse._id);
   return (
     <div
       className="card  pad"
@@ -27,6 +27,7 @@ const Card = ({
           <img
             src={`${baseUrl}/courses/images/${currentCourse?.iconImgUrl}`}
             className="card-img pad"
+            onLoad={handleImageLoaded}
           ></img>
         )}
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getToken, getUserData } from "../auth/localStorage";
+import { getToken, getUserData } from "../auth/auth";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -8,7 +8,7 @@ export const SecureRoute = ({ children }) => {
 
   const token = getToken();
   const userData = getUserData();
-  console.log("userData", userData);
+
   const nav = useNavigate();
 
   function getUser(data) {

@@ -9,10 +9,13 @@ button[disabled]{
 }
 
 .text{
+  font-weight: 500;
     position: relative;
     right:5px;
     bottom: 1px;
 }
+
+
 
 
 

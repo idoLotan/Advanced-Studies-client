@@ -9,7 +9,7 @@ import {
   getPhyicsCourses,
   getPopularCourses,
 } from "../axios";
-import { isLoggedIn } from "../auth/localStorage";
+import { isLoggedIn } from "../auth/auth";
 import useCourse from "../Hooks/useCourse";
 import Courses from "../components/Courses";
 import { getCourses, getUser } from "../helper";
@@ -20,7 +20,7 @@ const Home = () => {
 
   const [popCourses, setPopCourses] = useState([]);
   const [myCourses, setMyCourses] = useState([]);
-  const [physicsCourses, setPhysicsCourses] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [myCoursesIds, setMyCoursesIds] = useState([]);
 
   useEffect(() => {
@@ -30,29 +30,32 @@ const Home = () => {
       getCourses(getMyCourses, setMyCourses);
     }
     getCourses(getPopularCourses, setPopCourses);
-    getCourses(getPhyicsCourses, setPhysicsCourses);
   }, []);
 
   const context = useContext(UserContext);
   const islogged = isLoggedIn();
 
+  function handleImageLoaded() {
+    setIsLoading(false);
+  }
+
   return (
-    <div className="home-page   fade-in">
+    <div className="home-page   ">
       {toggledCourse ? (
         <CoursePage
           currentCourse={currentCourse}
           setToggledCourse={setToggledCourse}
         />
       ) : (
-        <>
+        <div>
           <div className="welcome-section row between">
             <h2 className="col left ">
               {!islogged && <b>Wellcom to Advanced Studies!</b>}
 
               {islogged && (
                 <>
-                  <b>{`Hello ${context?.user?.firstName} `}</b>
-                  <b>{`Discover the world of science and math `}</b>
+                  <b>{`Hello ${context?.user?.firstName}! `}</b>
+                  <b>{`ready to discover new ideas and expand your knowledge?`}</b>
                 </>
               )}
             </h2>
@@ -60,35 +63,27 @@ const Home = () => {
               <img src={homePagePhoto} className="homePagePhoto"></img>
             </div>
           </div>
-          {/* 
-          <PopularCourses
-            choseCourse={choseCourse}
-            currentCourse={currentCourse}
-          /> */}
-          <Courses
-            courses={popCourses}
-            title={"Popular Courses"}
-            choseCourse={choseCourse}
-            myCoursesIds={""}
-          />
-          <Courses
-            courses={physicsCourses}
-            title={"physicsCourses"}
-            choseCourse={choseCourse}
-            myCoursesIds={""}
-          />
-
-          {islogged && (
-            // <MyCourses choseCourse={choseCourse} />
+          <div
+            style={{ display: isLoading ? "none" : "block" }}
+            className="fade-in"
+          >
+            {islogged && (
+              <Courses
+                courses={myCourses}
+                title={"my Courses"}
+                choseCourse={choseCourse}
+                myCoursesIds={myCoursesIds}
+                isOpen={true}
+                handleImageLoaded={handleImageLoaded}
+              />
+            )}
             <Courses
-              courses={myCourses}
-              title={"my Courses"}
+              courses={popCourses}
+              title={"Popular Courses"}
               choseCourse={choseCourse}
-              myCoursesIds={myCoursesIds}
-              isOpen={true}
             />
-          )}
-        </>
+          </div>
+        </div>
       )}
     </div>
   );

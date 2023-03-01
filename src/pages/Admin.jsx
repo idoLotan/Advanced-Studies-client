@@ -20,8 +20,6 @@ export const Admin = () => {
   }
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  console.log("state.option", state.option);
-
   return (
     <div className="admin-page">
       <Sidebar

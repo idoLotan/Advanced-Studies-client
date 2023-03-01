@@ -6,8 +6,8 @@ const Courses = ({
   choseCourse,
   myCoursesIds = "",
   isOpen,
+  handleImageLoaded,
 }) => {
-  console.log("courses", courses);
   return (
     <div className="my-courses">
       <div className="cards-title">{title}</div>
@@ -16,6 +16,7 @@ const Courses = ({
           (course) =>
             course && (
               <Card
+                handleImageLoaded={handleImageLoaded}
                 currentCourse={course}
                 Courses={courses}
                 choseCourse={choseCourse}

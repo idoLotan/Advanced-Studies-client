@@ -27,7 +27,7 @@ const SearchBar = ({ onSearch }) => {
       <form role="form ">
         <div className="form-group">
           <input
-            onKeyUp={debounce(handler, 500)}
+            onChange={debounce(handler, 500)}
             ref={searchRef}
             type="text"
             className="form-control "
