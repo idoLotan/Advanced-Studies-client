@@ -12,7 +12,7 @@ const Courses = ({
     <div className="my-courses">
       <div className="cards-title">{title}</div>
       <div className=" courses row left">
-        {courses.map(
+        {courses?.map(
           (course) =>
             course && (
               <Card

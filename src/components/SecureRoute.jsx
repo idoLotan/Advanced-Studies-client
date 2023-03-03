@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getToken, getUserData } from "../auth/auth";
+import { getToken, getUserData } from "../auth/user";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -35,25 +35,3 @@ export const SecureRoute = ({ children }) => {
 
   return children;
 };
-
-// import { useState, useEffect } from "react";
-// import { getToken, getUserData } from "../auth/localStorage";
-// import { useNavigate } from "react-router-dom";
-
-// export const SecureRoute = ({ children }) => {
-//   const [isAdmin, setAdmin] = useState(false);
-//   const token = getToken();
-//   const userData = getUserData();
-//   const nav = useNavigate();
-
-//   useEffect(() => {
-//     if (!token) {
-//       nav("/home");
-//     } else if (userData.permissions !== "admin") {
-//       setAdmin(true);
-//       nav("/home");
-//     }
-//   }, [token, userData, nav]);
-
-//   return children;
-// };

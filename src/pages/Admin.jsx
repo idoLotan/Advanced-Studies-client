@@ -5,14 +5,9 @@ import { AddQuestions } from "../components/AddQuestions";
 import { Sidebar } from "../Layouts/SideBar/SideBar";
 
 export const Admin = () => {
-  const [select, setSelect] = useState("");
   const [fieldName, setFieldName] = useState("");
   const [courseName, setCourseName] = useState("");
   const [questions, setQuestions] = useState("");
-
-  const getSelect = (e) => {
-    setSelect(e.target.value);
-  };
 
   const initialState = { option: "field" };
   function reducer(state, action) {
@@ -38,7 +33,6 @@ export const Admin = () => {
             <AddField
               setFieldName={setFieldName}
               fieldName={fieldName}
-              select={select}
               state={state}
             />
           </>
@@ -51,7 +45,6 @@ export const Admin = () => {
               state={state}
               setCourseName={setCourseName}
               courseName={courseName}
-              select={select}
             />
           </div>
         )}
@@ -59,7 +52,6 @@ export const Admin = () => {
           <div>
             <AddQuestions
               setCourseName={setCourseName}
-              select={select}
               state={state}
               setQuestions={setQuestions}
               question={questions}

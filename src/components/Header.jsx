@@ -1,7 +1,7 @@
 import { useEffect, useState, useReducer } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/img/atom.png";
-import { getToken, getUserData, logout } from "../auth/auth";
+import { getToken, getUserData, logout } from "../auth/user";
 import Button from "../Layouts/Button/Button";
 import Modal from "../Layouts/Modal/Modal";
 import Navbar from "./Navbar";

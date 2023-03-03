@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { baseUrl } from "../axios";
+import { baseUrl, config } from "../axios";
 
 const useCourse = () => {
   const [currentCourse, setCurrentCourse] = useState("");
@@ -13,9 +13,11 @@ const useCourse = () => {
       const userId = userObject._id;
       const rateResponse = await axios.post(
         `${baseUrl}/courses/login/rate/${userId}`,
+
         {
           id: courseId,
-        }
+        },
+        config
       );
       console.log("rateResponse", rateResponse);
     } catch (err) {
@@ -25,7 +27,8 @@ const useCourse = () => {
 
   async function rateCourse(courseId) {
     const rateResponse = await axios.post(
-      `${baseUrl}/courses/rate/${courseId}`
+      `${baseUrl}/courses/rate/${courseId}`,
+      config
     );
     return rateResponse;
   }
@@ -34,7 +37,7 @@ const useCourse = () => {
     const token = localStorage.getItem("Token");
     if (token) {
       try {
-        const resp = await axios.get(`${baseUrl}/courses/${id}`);
+        const resp = await axios.get(`${baseUrl}/courses/${id}`, config);
         const course = resp?.data?.data;
         setCurrentCourse(course);
         setToggledCourse(!toggledCourse);
@@ -44,7 +47,7 @@ const useCourse = () => {
       }
     } else {
       try {
-        const resp = await axios.get(`${baseUrl}/courses/${id}`);
+        const resp = await axios.get(`${baseUrl}/courses/${id}`, config);
         const course = resp?.data?.data;
         const response = await rateCourse(id);
         setCurrentCourse(course);

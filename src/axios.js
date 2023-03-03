@@ -1,20 +1,25 @@
 import axios from "axios";
-import { storeToken, storeUserData } from "./auth/auth";
+import { getToken, storeToken, storeUserData } from "./auth/user";
 
 export const baseUrl = "http://localhost:4000";
 
-export const PostAuth = async (url, data) => {
-  const returnValue = [];
-  await axios
-    .post(`${baseUrl}/${url}`, data)
-    .then((data) => {
-      storeToken(data.data.data[0]);
-      storeUserData(data.data.data[1]);
-    })
-    .catch((err) => {
-      returnValue.push(...err.response.data.message);
-    });
-  return returnValue;
+export const config = {
+  headers: {
+    authorization: getToken(),
+  },
+};
+
+export const PostAuth = async (data) => {
+  try {
+    const returnValue = [];
+    const response = await axios.post(`${baseUrl}/users/register`, data);
+    console.log("response", response);
+
+    storeToken(response.data.data.access_token);
+    storeUserData(data.data);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const postImage = async (imageType, image, id) => {
@@ -25,7 +30,10 @@ export const postImage = async (imageType, image, id) => {
       `${baseUrl}/courses/images/${imageType}/${id}`,
       formData,
       {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: {
+          "Content-Type": "multipart/form-data",
+          authorization: getToken(),
+        },
       }
     );
     console.log(resp);
@@ -37,7 +45,7 @@ export const postImage = async (imageType, image, id) => {
 
 export const getPopularCourses = async () => {
   try {
-    const temp = await axios.get(`${baseUrl}/courses/popular`);
+    const temp = await axios.get(`${baseUrl}/courses/popular`, config);
     const PopCourses = temp.data.data;
     console.log("PopCourses", PopCourses);
     return PopCourses;
@@ -48,7 +56,7 @@ export const getPopularCourses = async () => {
 
 export const getPhysicsCourses = async () => {
   try {
-    const temp = await axios.get(`${baseUrl}/courses/fields/phyiscs`);
+    const temp = await axios.get(`${baseUrl}/courses/fields/phyiscs`, config);
     const PopCourses = temp.data.data;
     return PopCourses;
   } catch (err) {
@@ -59,13 +67,14 @@ export const getPhysicsCourses = async () => {
 export const getMyCourses = async () => {
   const user = JSON.parse(localStorage.getItem("personObject"));
   const myCoursesIds = user.courses;
+  console.log("myCoursesIds", myCoursesIds);
   let tempCourseList = [];
   try {
     for (let key in myCoursesIds) {
-      let temp = await axios.get(`${baseUrl}/courses/${key}`);
+      let temp = await axios.get(`${baseUrl}/courses/${key}`, config);
       tempCourseList.push(temp?.data?.data);
     }
-    return tempCourseList;
+    return tempCourseList.reverse().splice(0, 4);
   } catch (err) {
     console.log(err);
   }
@@ -75,7 +84,8 @@ export const getCoursesByField = async (fieldName) => {
   console.log("fieldName", fieldName);
   try {
     const response = await axios.get(
-      `${baseUrl}/courses/fields/name?fieldName=${fieldName}`
+      `${baseUrl}/courses/fields/name?fieldName=${fieldName}`,
+      config
     );
     console.log("response", response);
     const coursesIds = response.data.course.splice(0, 4);

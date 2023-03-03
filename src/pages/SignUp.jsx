@@ -18,15 +18,15 @@ export const SignUp = ({ handleSignIn, setLogin, onClose }) => {
       password,
       userName,
     };
-    const post = await PostAuth(`users/signup`, userData);
+    const post = await PostAuth(userData);
 
-    if (post.length !== 0) {
-      setError(post);
-    } else {
-      handleSignIn();
-      setLogin(true);
-      window.location.reload();
-    }
+    // if (post.length !== 0) {
+    //   setError(post);
+    // } else {
+    //   handleSignIn();
+    //   setLogin(true);
+    //   window.location.reload();
+    // }
   };
 
   const renderError = () => {
@@ -38,7 +38,7 @@ export const SignUp = ({ handleSignIn, setLogin, onClose }) => {
   };
 
   return (
-    <form className="sign-up">
+    <div className="sign-up">
       <div className="content">
         <div className="title  row pad">
           <h3>Sign Up</h3>
@@ -88,6 +88,6 @@ export const SignUp = ({ handleSignIn, setLogin, onClose }) => {
         </div>
         <div className="errorUser">{renderError()}</div>
       </div>
-    </form>
+    </div>
   );
 };

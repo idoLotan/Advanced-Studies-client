@@ -95,12 +95,6 @@ const CoursesPage = () => {
                   title={"chemistry Courses"}
                   choseCourse={choseCourse}
                 />
-                {/* <Courses
-                  courses={popCourses}
-                  title={"Popular Courses"}
-                  choseCourse={choseCourse}
-                  myCoursesIds={""}
-                /> */}
               </div>
             )}
           </>

@@ -3,13 +3,8 @@ import homePagePhoto from "../assets/img/science.png";
 import { useContext, useEffect, useState } from "react";
 import CoursePage from "./CoursePage";
 import { UserContext } from "../context/UserContext";
-import {
-  getCoursesByField,
-  getMyCourses,
-  getPhyicsCourses,
-  getPopularCourses,
-} from "../axios";
-import { isLoggedIn } from "../auth/auth";
+import { getMyCourses, getPopularCourses } from "../axios";
+import { isLoggedIn } from "../auth/user";
 import useCourse from "../Hooks/useCourse";
 import Courses from "../components/Courses";
 import { getCourses, getUser } from "../helper";
@@ -29,6 +24,7 @@ const Home = () => {
       setMyCoursesIds(user.courses);
       getCourses(getMyCourses, setMyCourses);
     }
+
     getCourses(getPopularCourses, setPopCourses);
   }, []);
 
@@ -54,8 +50,12 @@ const Home = () => {
 
               {islogged && (
                 <>
-                  <b>{`Hello ${context?.user?.firstName}! `}</b>
-                  <b>{`ready to discover new ideas and expand your knowledge?`}</b>
+                  {context?.user?.firstName && (
+                    <>
+                      <b>{`Hello ${context?.user?.firstName}! `}</b>
+                      <b>{`ready to discover new ideas and expand your knowledge?`}</b>
+                    </>
+                  )}
                 </>
               )}
             </h2>
@@ -74,13 +74,13 @@ const Home = () => {
                 choseCourse={choseCourse}
                 myCoursesIds={myCoursesIds}
                 isOpen={true}
-                handleImageLoaded={handleImageLoaded}
               />
             )}
             <Courses
               courses={popCourses}
               title={"Popular Courses"}
               choseCourse={choseCourse}
+              handleImageLoaded={handleImageLoaded}
             />
           </div>
         </div>

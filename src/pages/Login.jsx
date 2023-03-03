@@ -3,7 +3,7 @@ import { baseUrl } from "../axios";
 import Button from "../Layouts/Button/Button";
 import { useRef } from "react";
 import axios from "axios";
-import { storeToken, storeUserData } from "../auth/auth";
+import { storeToken, storeUserData } from "../auth/user";
 
 export const Login = ({ onClose }) => {
   const emailRef = useRef();
@@ -17,6 +17,7 @@ export const Login = ({ onClose }) => {
     };
 
     const resp = await axios.post(`${baseUrl}/users/login`, userData);
+    console.log("resp", resp);
     const token = resp.data.data.access_token;
     const userObj = resp.data.data.user;
     storeToken(token);
@@ -33,7 +34,7 @@ export const Login = ({ onClose }) => {
   };
 
   return (
-    <form className="login">
+    <div className="login">
       <div className="content">
         <div className="title">
           <h3>Login</h3>
@@ -64,6 +65,6 @@ export const Login = ({ onClose }) => {
         </div>
         <div className="errorUser">{renderError()}</div>
       </div>
-    </form>
+    </div>
   );
 };
