@@ -7,18 +7,14 @@ export const UserContext = createContext({ user: null, token: null });
 
 const Provider = UserContext.Provider;
 
-// const user = JSON.parse(localStorage.getItem("personObject"));
 const token = localStorage.getItem("Token");
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState();
-
   async function getMe() {
     const userData = await axios.get(`${baseUrl}/users/me`, config);
-
     setUser(userData.data.data);
     storeUserData(userData.data.data);
-    console.log("user", userData);
   }
 
   useEffect(() => {
@@ -27,11 +23,6 @@ export const UserProvider = ({ children }) => {
       getMe();
     }
   }, []);
-
-  console.log("usersdsfd");
-  // const [user, setUser] = useState(null);
-  // const [token, setToken] = useState(null);
-  // getMe();
 
   const value = {
     user,

@@ -18,6 +18,7 @@ export const Login = ({ onClose }) => {
 
     const resp = await axios.post(`${baseUrl}/users/login`, userData);
     console.log("resp", resp);
+
     const token = resp.data.data.access_token;
     const userObj = resp.data.data.user;
     storeToken(token);

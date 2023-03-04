@@ -7,28 +7,23 @@ import { getMyCourses, getPopularCourses } from "../axios";
 import { isLoggedIn } from "../auth/user";
 import useCourse from "../Hooks/useCourse";
 import Courses from "../components/Courses";
-import { getCourses, getUser } from "../helper";
+import { getCourses } from "../helper";
 
 const Home = () => {
   const { choseCourse, currentCourse, setToggledCourse, toggledCourse } =
     useCourse();
-
   const [popCourses, setPopCourses] = useState([]);
   const [myCourses, setMyCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [myCoursesIds, setMyCoursesIds] = useState([]);
 
-  useEffect(() => {
-    const user = getUser();
-    if (user) {
-      setMyCoursesIds(user.courses);
-      getCourses(getMyCourses, setMyCourses);
-    }
+  const context = useContext(UserContext);
 
+  useEffect(() => {
+    getMyCourses(setMyCourses, setMyCoursesIds);
     getCourses(getPopularCourses, setPopCourses);
   }, []);
 
-  const context = useContext(UserContext);
   const islogged = isLoggedIn();
 
   function handleImageLoaded() {

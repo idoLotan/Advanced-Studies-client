@@ -2,7 +2,7 @@ import { useState } from "react";
 import { PostAuth } from "../axios";
 import Button from "../Layouts/Button/Button";
 
-export const SignUp = ({ handleSignIn, setLogin, onClose }) => {
+export const SignUp = ({ setLogin, onClose }) => {
   const [email, setEmail] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -18,23 +18,17 @@ export const SignUp = ({ handleSignIn, setLogin, onClose }) => {
       password,
       userName,
     };
+
     const post = await PostAuth(userData);
 
-    // if (post.length !== 0) {
-    //   setError(post);
-    // } else {
-    //   handleSignIn();
-    //   setLogin(true);
-    //   window.location.reload();
-    // }
-  };
+    console.log("post", post[0]);
 
-  const renderError = () => {
-    if (error.length !== 0) {
-      return error.map((err) => <h3 key={err}>{err}</h3>);
-    } else {
-      return null;
+    if (post.length !== 0) {
+      setError(post[0]);
+      return;
     }
+    setLogin(true);
+    window.location.reload();
   };
 
   return (
@@ -86,7 +80,9 @@ export const SignUp = ({ handleSignIn, setLogin, onClose }) => {
             Submit
           </button>
         </div>
-        <div className="errorUser">{renderError()}</div>
+        <div className="errorUser" style={{ color: "red" }}>
+          {error}
+        </div>
       </div>
     </div>
   );

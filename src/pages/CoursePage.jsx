@@ -66,10 +66,7 @@ const CoursePage = ({ currentCourse, setToggledCourse }) => {
   };
 
   return (
-    <div
-      className="class-page fade-in"
-      style={{ display: isLoading ? "none" : "block" }}
-    >
+    <div className="class-page fade-in">
       <div className="row"> {isLoading && <Loader />}</div>
 
       {classEnded ? (
@@ -78,7 +75,10 @@ const CoursePage = ({ currentCourse, setToggledCourse }) => {
           currentCourse={currentCourse}
         />
       ) : (
-        <div className="course-page fade-in">
+        <div
+          className="course-page fade-in"
+          style={{ display: isLoading ? "none" : "block" }}
+        >
           <Button
             icon={"chevron-left"}
             onClick={(toggledClass) => {

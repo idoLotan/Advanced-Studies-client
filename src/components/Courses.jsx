@@ -1,18 +1,19 @@
 import Card from "../Layouts/Card/Card";
 
 const Courses = ({
+  handleImageLoaded,
   courses,
   title,
   choseCourse,
   myCoursesIds = "",
   isOpen,
-  handleImageLoaded,
 }) => {
+  console.log("myCoursesIds courses compoennt", myCoursesIds);
   return (
     <div className="my-courses">
       <div className="cards-title">{title}</div>
       <div className=" courses row left">
-        {courses?.map(
+        {courses.map(
           (course) =>
             course && (
               <Card
@@ -24,10 +25,8 @@ const Courses = ({
                 courseTitle={course.courseName}
                 isOpen={isOpen}
                 precent={
-                  myCoursesIds && !myCoursesIds[course._id].length
-                    ? 0
-                    : (myCoursesIds[course._id]?.length * 100) /
-                      course?.questions?.length
+                  (myCoursesIds[course._id]?.length * 100) /
+                  course?.questions?.length
                 }
               />
             )
