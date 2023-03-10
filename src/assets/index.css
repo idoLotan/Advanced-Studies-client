@@ -170,9 +170,6 @@ textarea{
     margin-right: auto;
   } 
 
-  
-  
-  
   .App{  
     height: 100%;
     max-width: 100%;
@@ -243,61 +240,21 @@ textarea{
     width:var(--img-lg); 
   }
 
-  .class-card{
-    margin: 10px;
-    border-radius: 6px;
-    width: clamp(200px, 15vw, 450px);
-    height: clamp(200px, 15vw, 450px);
-    border: 1px solid #ccc; 
-    opacity: 0.8
-   }
-
- .class-card:hover{
- opacity: 1;
- }
-
-.popular-classes{
-      width: clamp(200px ,80vw , 900px);
-      margin-left: auto;
-      margin-right: auto;
-      padding: 10px;
-    }
-
-.my-courses{
+.courses{
   width: clamp(200px ,80vw , 900px);
   margin-left: auto;
   margin-right: auto;
   padding: 10px;
+ 
+
 }
 
-    .cards-title{
-      font-weight: 500;
-      margin-left: 20px;
-      padding-bottom: 10px;
-    }
-
-    .open-classes{
-      margin: auto;
-      width: clamp(600px ,70vw , 800px);
-      padding: 10px;
-    }
-
-
-
-    .open-classes-title{
-      margin-left: 10px;
-      padding-bottom: 10px;
-    }
-
-    .classes{
-      margin: auto;
-      width: clamp(200px ,80vw , 900px);
-      position: relative;
-      display: flex; 
-      justify-content: flex-start;  
-    }
-
-    
+.cards-title{
+  font-weight: 400;
+  margin-left: 20px;
+  padding-bottom: 10px;
+}
+   
 .btn{
   width:200px;
   margin: 5px; 
@@ -325,35 +282,18 @@ textarea{
   font-weight: 400;
 }
 
-.class-page-content{
-  position: relative; 
-  padding-bottom: 80px;
-  max-width: 600px;
-  margin: auto; 
-}
-
-.class-page{
-  width: 100%;
-}
-
 
 .qestion-text{
   height: 200px;
- display:flex;
- flex-flow: column;
- align-items: flex-start;
-}
-
-.qestion{
-  margin-top: 30px;
-  width: clamp(300px, 50vw , 600px)
-}
-
+  display:flex;
+  flex-flow: column;
+  align-items: flex-start;
+ }
 
 .back-btn{
   position:absolute;
   top:80px;
- 
+  left: 0;
 }
 
 .start-class-btn{
@@ -489,11 +429,31 @@ top: 3px;
   .answer{
     width: 100%;
   }
+
+  .last-course{
+      width: clamp(200px ,80vw , 850px);
+      margin: auto;
+      height: 250px;
+      font-weight: 500;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+  }
+
+  .last-course-title{
+    width: clamp(200px ,80vw , 850px);
+    margin: auto;
+    padding-bottom: 10px;
+  }
+
+  .last-course-image{
+    border-radius: 4px;
+    margin-left:10px ;
+
+  }
   
 
 
 @media (width < 768px)  {
-
 
   .card-img{
   width: var(--img-xxs);
@@ -501,10 +461,11 @@ top: 3px;
   right:0px;
   top: 0px; 
   }
-  .header-title{
+
+.header-title{
       display:none;
   }
-
+  
 .recommended-classes{
   width: 100%;
  

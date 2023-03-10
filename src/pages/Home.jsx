@@ -3,11 +3,12 @@ import homePagePhoto from "../assets/img/science.png";
 import { useContext, useEffect, useState } from "react";
 import CoursePage from "./CoursePage";
 import { UserContext } from "../context/UserContext";
-import { getMyCourses, getPopularCourses } from "../axios";
-import { isLoggedIn } from "../auth/user";
+import { getMyCourses, getPopularCourses, getUserData } from "../axios";
+import { isLoggedIn } from "../auth/auth";
 import useCourse from "../Hooks/useCourse";
 import Courses from "../components/Courses";
 import { getCourses } from "../helper";
+import LastCourse from "../components/LastCourse";
 
 const Home = () => {
   const { choseCourse, currentCourse, setToggledCourse, toggledCourse } =
@@ -16,6 +17,7 @@ const Home = () => {
   const [myCourses, setMyCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [myCoursesIds, setMyCoursesIds] = useState([]);
+  const [user, setUser] = useState([]);
 
   const context = useContext(UserContext);
 
@@ -58,18 +60,22 @@ const Home = () => {
               <img src={homePagePhoto} className="homePagePhoto"></img>
             </div>
           </div>
+
           <div
             style={{ display: isLoading ? "none" : "block" }}
             className="fade-in"
           >
             {islogged && (
-              <Courses
-                courses={myCourses}
-                title={"my Courses"}
-                choseCourse={choseCourse}
-                myCoursesIds={myCoursesIds}
-                isOpen={true}
-              />
+              <>
+                <LastCourse choseCourse={choseCourse}></LastCourse>
+                <Courses
+                  courses={myCourses}
+                  title={"my Courses"}
+                  choseCourse={choseCourse}
+                  myCoursesIds={myCoursesIds}
+                  isOpen={true}
+                />
+              </>
             )}
             <Courses
               courses={popCourses}

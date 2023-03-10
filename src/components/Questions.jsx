@@ -90,7 +90,7 @@ const Questions = ({
 
   return (
     <div
-      className="class-page-content fade-in"
+      className="content fade-in"
       style={{ display: qestion?.questionImg && isLoading ? "none" : "block" }}
     >
       <div className="row">

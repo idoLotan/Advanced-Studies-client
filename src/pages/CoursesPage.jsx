@@ -1,14 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import {
-  baseUrl,
-  getChemistryCourses,
-  getPhyicsCourses,
-  getPopularCourses,
-} from "../axios";
+import { baseUrl, getCoursesByField } from "../axios";
 import Courses from "../components/Courses";
 import Search from "../components/Search";
-import { getCourses } from "../helper";
 import useCourse from "../Hooks/useCourse";
 import SearchBar from "../Layouts/SearchBar/SearchBar";
 import CoursePage from "./CoursePage";
@@ -20,15 +14,18 @@ const CoursesPage = () => {
   const [searchCourses, setSearchCourses] = useState([]);
   const [loader, setLoader] = useState(false);
   const [toggledResult, setToggledResult] = useState(false);
-  const [popCourses, setPopCourses] = useState([]);
   const [physicsCourses, setPhysicsCourses] = useState([]);
   const [chemistryCourses, setChemistryCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getCourses(getPopularCourses, setPopCourses);
-    getCourses(getPhyicsCourses, setPhysicsCourses);
-    getCourses(getChemistryCourses, setChemistryCourses);
+    async function getCourses() {
+      const phyicsCourses = await getCoursesByField("phyics");
+      const chemistryCourses = await getCoursesByField("chemistry");
+      setPhysicsCourses(phyicsCourses);
+      setChemistryCourses(chemistryCourses);
+    }
+    getCourses();
   }, []);
 
   function handleImageLoaded() {

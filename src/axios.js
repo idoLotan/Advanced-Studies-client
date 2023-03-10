@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getToken, storeToken, storeUserData } from "./auth/user";
+import { getToken, storeToken, storeUserData } from "./auth/auth";
 
 export const baseUrl = "http://localhost:4000";
 
@@ -61,15 +61,38 @@ export const getPopularCourses = async () => {
   }
 };
 
-export const getPhysicsCourses = async () => {
-  try {
-    const temp = await axios.get(`${baseUrl}/courses/fields/phyiscs`, config);
-    const PopCourses = temp.data.data;
-    return PopCourses;
-  } catch (err) {
-    console.log(err);
-  }
-};
+// export const getPhysicsCourses = async () => {
+//   try {
+//     const temp = await axios.get(`${baseUrl}/courses/fields/phyiscs`, config);
+//     const PopCourses = temp.data.data;
+//     return PopCourses;
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
+
+// export const getCoursesByField = async (fieldName) => {
+//   console.log("fieldName", fieldName);
+//   try {
+//     const response = await axios.get(
+//       `${baseUrl}/courses/fields/name?fieldName=${fieldName}`,
+//       config
+//     );
+//     console.log("response", response);
+//     const coursesIds = response.data.course;
+//     console.log("coursesIds", coursesIds);
+//     let courseList = [];
+//     coursesIds.forEach(async (id) => {
+//       let temp = await axios.get(`${baseUrl}/courses/${id}`);
+//       console.log("temp", temp.data.data);
+//       courseList.push(temp?.data.data);
+//       console.log("courseList", courseList);
+//     });
+//     return courseList;
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
 
 export const getCoursesByField = async (fieldName) => {
   console.log("fieldName", fieldName);
@@ -78,24 +101,17 @@ export const getCoursesByField = async (fieldName) => {
       `${baseUrl}/courses/fields/name?fieldName=${fieldName}`,
       config
     );
-    console.log("response", response);
-    const coursesIds = response.data.course.splice(0, 4);
-    let courseList = [];
-    coursesIds.forEach(async (id) => {
-      let temp = await axios.get(`${baseUrl}/courses/${id}`);
-      courseList.push(temp?.data.data);
+    const coursesIds = response.data.course;
+    const promises = coursesIds.map(async (id) => {
+      const temp = await axios.get(`${baseUrl}/courses/${id}`);
+      return temp.data.data;
     });
-    console.log(courseList);
+
+    const courseList = await Promise.all(promises);
     return courseList;
   } catch (err) {
     console.log(err);
   }
-};
-
-export const getPhyicsCourses = async () => {
-  const phyicsCourses = await getCoursesByField("phyics");
-  console.log("phyicsCourses", phyicsCourses);
-  return phyicsCourses;
 };
 
 export const getChemistryCourses = async () => {
@@ -119,6 +135,13 @@ export const getMyCourses = async (setMycourses, setMyCoursesIds) => {
   } catch (err) {
     console.log(err);
   }
+};
+
+export const getUserData = async (setData) => {
+  const userData = await axios.get(`${baseUrl}/users/me`, config);
+  console.log(userData);
+  setData(userData);
+  return userData;
 };
 
 // export const getMyCourses = async (setMycourses, setMyCoursesIds) => {

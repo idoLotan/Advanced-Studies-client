@@ -1,5 +1,5 @@
 .card {
-  font-weight: 500;
+    font-weight: 500;
     width: 186px;
     min-width: 136px; 
     height: clamp(200px, 20vw, 250px);
@@ -12,8 +12,8 @@
     text-decoration: none;
     z-index: 0;
     overflow: hidden;
-   display: flex;
-   flex-grow: row;
+    display: flex;
+    flex-grow: row;
     border: 1px solid #cccccc;
     flex-wrap: wrap;
    

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getToken, getUserData } from "../auth/user";
+import { getToken, getUserData } from "../auth/auth";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
