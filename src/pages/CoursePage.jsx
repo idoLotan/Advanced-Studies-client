@@ -45,15 +45,16 @@ const CoursePage = ({ currentCourse, setToggledCourse }) => {
     try {
       const questionsList = [];
       const resp = await axios.get(`${baseUrl}/courses/${currentCourse._id}`);
-      const questionsIds = await resp.data.data.questions;
+      const questionsIds = resp.data.data.questions;
 
-      for (let questionId of questionsIds) {
-        const temp = await axios.get(
-          `${baseUrl}/courses/questions/${questionId}`
-        );
+      const promises = questionsIds.map((questionId) =>
+        axios.get(`${baseUrl}/courses/questions/${questionId}`)
+      );
+      const temp = await Promise.all(promises);
 
-        questionsList.push(temp.data.data);
-      }
+      temp.forEach((response) => {
+        questionsList.push(response.data.data);
+      });
 
       setCourseQuestions(questionsList);
     } catch (err) {

@@ -1,12 +1,25 @@
 import React, { useState } from "react";
 import { baseUrl } from "../axios";
 import Button from "../Layouts/Button/Button";
+import Question from "./Question";
+const ObjectID = require("bson-objectid");
 
 function Content({ setIsReading, img, text }) {
   const [currentParagraph, setCurrentParagraph] = useState(1);
+  const [displayText, setDisplayText] = useState([text[0]]);
+
+  function isMongoObjectId(id) {
+    return ObjectID.isValid(id);
+  }
+
+  function isAWSDocument(str) {
+    const regex = /^[a-zA-Z0-9!@#$%^&*()_+={}\[\]|\\;:'",.<>/?-]{1,1024}$/;
+    return regex.test(str);
+  }
 
   function handleNextParagraph() {
     setCurrentParagraph(currentParagraph + 1);
+    setDisplayText((displayText) => [...displayText, text[currentParagraph]]);
     if (currentParagraph + 1 == text.length) {
       setIsReading(false);
     }
@@ -18,9 +31,18 @@ function Content({ setIsReading, img, text }) {
         <img src={`${baseUrl}/courses/images/${img}`} className="intro-img" />
       </div>
 
-      {text.slice(0, currentParagraph).map((paragraph) => (
-        <p key={paragraph}>{paragraph} </p>
-      ))}
+      {displayText.map((paragraph) =>
+        isMongoObjectId(paragraph) ? (
+          <Question questionId={paragraph} />
+        ) : isAWSDocument(paragraph) ? (
+          <div className="row">
+            <img src={`${baseUrl}/courses/images/${paragraph}`}></img>
+          </div>
+        ) : (
+          <p key={paragraph}>{paragraph}</p>
+        )
+      )}
+
       {currentParagraph < text.length && (
         <div className="row right">
           <Button

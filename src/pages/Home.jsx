@@ -3,7 +3,7 @@ import homePagePhoto from "../assets/img/science.png";
 import { useContext, useEffect, useState } from "react";
 import CoursePage from "./CoursePage";
 import { UserContext } from "../context/UserContext";
-import { getMyCourses, getPopularCourses, getUserData } from "../axios";
+import { getMyCourses, getPopularCourses } from "../axios";
 import { isLoggedIn } from "../auth/auth";
 import useCourse from "../Hooks/useCourse";
 import Courses from "../components/Courses";
@@ -42,20 +42,23 @@ const Home = () => {
       ) : (
         <div>
           <div className="welcome-section row between">
-            <h2 className="col left ">
-              {!islogged && <b>Wellcom to Advanced Studies!</b>}
+            <div className="col left ">
+              {!islogged && <h2>Welcome to Advanced Studies!</h2>}
 
               {islogged && (
                 <>
                   {context?.user?.firstName && (
                     <>
-                      <b>{`Hello ${context?.user?.firstName}! `}</b>
-                      <b>{`ready to discover new ideas and expand your knowledge?`}</b>
+                      <h2>
+                        <b>{`Hello ${context?.user?.firstName}! `} </b>
+                      </h2>
+
+                      <h3>{`ready to discover new ideas and expand your knowledge?`}</h3>
                     </>
                   )}
                 </>
               )}
-            </h2>
+            </div>
             <div className=" row right">
               <img src={homePagePhoto} className="homePagePhoto"></img>
             </div>

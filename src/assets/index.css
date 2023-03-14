@@ -185,8 +185,9 @@ textarea{
     display: flex;
     flex-direction: column;
     justify-content:center; 
-    border-bottom: var(--fs-lg) solid #999999;
+    /* border-bottom: var(--fs-lg) solid #999999; */
     z-index:10;
+    box-shadow: 0px 0px 15px rgb(0 0 0 / 20%);
   }
 
   .header-img{
@@ -294,6 +295,10 @@ textarea{
   position:absolute;
   top:80px;
   left: 0;
+}
+
+.resume-btn{
+  justify-content: space-around;
 }
 
 .start-class-btn{

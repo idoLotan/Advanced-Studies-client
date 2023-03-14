@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { baseUrl, config, getUserData } from "../axios";
+import { baseUrl, config } from "../axios";
+import Button from "../Layouts/Button/Button";
 
 const LastCourse = ({ choseCourse }) => {
   const [course, setCourse] = useState();
@@ -39,14 +40,14 @@ const LastCourse = ({ choseCourse }) => {
         <div className="col left">
           <h1> {course?.courseName}</h1>
 
-          <button
-            className="btn black"
+          <Button
+            className="btn black resume-btn "
             onClick={() => {
               choseCourse(course._id);
             }}
-          >
-            resome course
-          </button>
+            text={"Resume course"}
+            icon={"play"}
+          ></Button>
         </div>
 
         <div></div>
