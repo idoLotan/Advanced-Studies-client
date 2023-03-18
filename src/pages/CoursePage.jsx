@@ -103,7 +103,7 @@ const CoursePage = ({ currentCourse, setToggledCourse }) => {
                 text={currentCourse.courseContent}
               />
 
-              {!isReading && (
+              {/* {!isReading && (
                 <Questions
                   currentCourse={currentCourse}
                   setCount={setCount}
@@ -113,7 +113,7 @@ const CoursePage = ({ currentCourse, setToggledCourse }) => {
                   previousBtnDisplay={previousBtnDisplay}
                   courseQuestions={courseQuestions}
                 />
-              )}
+              )} */}
             </>
           )}
         </div>

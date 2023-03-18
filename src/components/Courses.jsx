@@ -9,7 +9,7 @@ const Courses = ({
   isOpen,
 }) => {
   const coursesToRender = courses.filter((course) => {
-    const courseId = course._id;
+    const courseId = course?._id;
     const completed =
       myCoursesIds[courseId]?.length === course?.questions?.length;
     return !completed;

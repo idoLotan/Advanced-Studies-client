@@ -230,7 +230,8 @@ textarea{
   }
 
   .admin-page-form{
-    width: clamp(600px ,70vw , 800px);
+    width: 100%;
+    margin:0px  10px  10px  10px;
     min-height:200px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -298,7 +299,7 @@ textarea{
 }
 
 .resume-btn{
-  justify-content: space-around;
+  justify-content: space-around
 }
 
 .start-class-btn{
@@ -455,7 +456,55 @@ top: 3px;
     margin-left:10px ;
 
   }
-  
+
+  .custom-content-input {
+    height: 40px;
+    width: 200px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 18px;
+    position: relative;
+  }
+
+
+  .custom-content-input-text {
+    padding-bottom: 150px;
+    padding-top: 20px;
+    width: 100%;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    position: relative;
+  }
+
+ 
+  .custom-content-input::before {
+     content: "Choose file"; 
+    display: block;
+    background: rgb(156, 156, 156);
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 40px;
+    color: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .custom-content-input:hover::before {
+    background: #333;
+  }
+
+  .add-content{
+    background: #f1f1f1;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+ .add-content-unit {
+  margin-top: 10px;
+ }
 
 
 @media (width < 768px)  {

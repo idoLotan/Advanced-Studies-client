@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useRef, useState } from "react";
-import { baseUrl } from "../axios";
+import { baseUrl, config } from "../axios";
+import InputFile from "../Layouts/InputFile/InputFile";
 
 export const AddField = () => {
   const [message, setMessage] = useState("");
+  const [file, setFile] = useState();
   const fieldNameRef = useRef();
 
   useEffect(() => {

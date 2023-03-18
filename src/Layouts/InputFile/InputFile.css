@@ -8,7 +8,7 @@
     position: relative;
   }
   .custom-file-input::before {
-     content: "Choose image"; 
+     content: "Choose file"; 
     display: block;
     background: rgb(156, 156, 156);
     width: 100%;
