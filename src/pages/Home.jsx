@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import CoursePage from "./CoursePage";
 import { UserContext } from "../context/UserContext";
 import { getMyCourses, getPopularCourses } from "../axios";
-import { isLoggedIn } from "../auth/auth";
+import { handleTokenExpiration, isLoggedIn } from "../auth/auth";
 import useCourse from "../Hooks/useCourse";
 import Courses from "../components/Courses";
 import { getCourses } from "../helper";
@@ -17,11 +17,11 @@ const Home = () => {
   const [myCourses, setMyCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [myCoursesIds, setMyCoursesIds] = useState([]);
-  const [user, setUser] = useState([]);
 
   const context = useContext(UserContext);
 
   useEffect(() => {
+    handleTokenExpiration();
     getMyCourses(setMyCourses, setMyCoursesIds);
     getCourses(getPopularCourses, setPopCourses);
   }, []);
@@ -43,7 +43,11 @@ const Home = () => {
         <div>
           <div className="welcome-section row between">
             <div className="col left ">
-              {!islogged && <h2>Welcome to Advanced Studies!</h2>}
+              {!islogged && (
+                <h2>
+                  <b>Welcome to Advanced Studies!</b>
+                </h2>
+              )}
 
               {islogged && (
                 <>
@@ -52,12 +56,11 @@ const Home = () => {
                       <h2>
                         <b>{`Hello ${context?.user?.firstName}! `} </b>
                       </h2>
-
-                      <h3>{`ready to discover new ideas and expand your knowledge?`}</h3>
                     </>
                   )}
                 </>
               )}
+              <h3>ready to discover new ideas and expand your knowledge?</h3>
             </div>
             <div className=" row right">
               <img src={homePagePhoto} className="homePagePhoto"></img>
@@ -73,7 +76,7 @@ const Home = () => {
                 <LastCourse choseCourse={choseCourse}></LastCourse>
                 <Courses
                   courses={myCourses}
-                  title={"my Courses"}
+                  title={"My Courses"}
                   choseCourse={choseCourse}
                   myCoursesIds={myCoursesIds}
                   isOpen={true}

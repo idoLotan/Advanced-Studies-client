@@ -1,27 +1,59 @@
 import axios from "axios";
-import { useRef, useState } from "react";
-import { baseUrl, postImage } from "../axios";
+import { useEffect, useRef, useState } from "react";
+import { baseUrl, getFields, postFile, postImage } from "../axios";
 import InputFile from "../Layouts/InputFile/InputFile";
+import { AddQuestions } from "./AddQuestions";
+
 export const AddCourse = () => {
   const courseTextRef = useRef();
   const [message, setMessage] = useState("");
   const [courseName, setCourseName] = useState("");
   const [fieldName, setFieldName] = useState("");
+  const [fieldsList, setFieldsList] = useState("");
   const [cardImage, setCardImage] = useState([]);
   const [pageImage, setPageImage] = useState([]);
   const [dynamicInputs, setDynamicInputs] = useState([]);
   const [formValues, setFormValues] = useState({});
-  const [courseContent, setCourseContent] = useState([]);
-
+  const [questionData, setQuestionData] = useState([]);
   const inputRefs = useRef([]);
 
+  useEffect(() => {
+    async function getFieldsList() {
+      try {
+        const fields = await getFields();
+        setFieldsList(fields);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    getFieldsList();
+  }, []);
+
+  const saveQuestions = async (questionData) => {
+    console.log(questionData);
+    try {
+      const resp = await axios.post(
+        `${baseUrl}/courses/questions/${courseName}`,
+        questionData
+      );
+      console.log(resp);
+      const id = resp.data._id;
+      return id;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   async function saveCourse() {
-    handleSubmit();
+    const courseContent = await handleSubmit();
+
     let data = {
       courseName: courseName,
       courseText: courseTextRef.current.value,
       courseContent: courseContent,
     };
+
     try {
       const resp = await axios.post(
         `${baseUrl}/courses/addCourse/${fieldName}`,
@@ -43,6 +75,26 @@ export const AddCourse = () => {
     return dynamicInputs.map((input, index) => {
       const name = `input-${index}`;
 
+      if (input.type === "question") {
+        return (
+          <div className="add-content-unit left" key={index}>
+            <i
+              className="fas fa-times"
+              onClick={() => removeDynamicInput(index)}
+            />
+            <AddQuestions
+              setQuestionData={setQuestionData}
+              onChange={(questionData) =>
+                setFormValues({
+                  ...formValues,
+                  [name]: questionData,
+                })
+              }
+            />
+          </div>
+        );
+      }
+
       return (
         <div className="add-content-unit left" key={index}>
           <i
@@ -52,19 +104,19 @@ export const AddCourse = () => {
           <div>
             <input
               className={
-                input.type == "text"
+                input.type === "text"
                   ? "custom-content-input-text"
                   : "custom-content-input "
               }
               type={input.type}
               placeholder={input.placeholder}
-              ref={(el) => (inputRefs.current[index] = el)}
+              // ref={(el) => (inputRefs.current[index] = el)}
               name={name}
               onChange={(e) =>
                 setFormValues({
                   ...formValues,
                   [name]:
-                    input.type == "file" ? e.target.files[0] : e.target.value,
+                    input.type === "file" ? e.target.files[0] : e.target.value,
                 })
               }
             />
@@ -72,6 +124,24 @@ export const AddCourse = () => {
         </div>
       );
     });
+  };
+
+  const addFieldsList = () => {
+    return (
+      fieldsList && (
+        <select
+          onChange={(e) => setFieldName(e.target.value)}
+          defaultValue="chose course"
+        >
+          <option selected>Choose a course</option>
+          {fieldsList?.map((item) => (
+            <option value={item} key={item}>
+              {item}
+            </option>
+          ))}
+        </select>
+      )
+    );
   };
 
   const addDynamicInput = (type) => {
@@ -95,44 +165,27 @@ export const AddCourse = () => {
   };
 
   async function handleSubmit() {
-    const refs = inputRefs.current.filter((el) => el !== null); // filter out null values
     const newData = [];
-    for (const el of refs) {
-      if (el.type === "text") {
-        newData.push(el.value);
-      } else if (el.type === "file") {
-        const referenceString = await postFile(el.files[0]);
-        console.log("referenceString", referenceString);
-        newData.push(referenceString);
-      }
-    }
-    setCourseContent(newData);
-    console.log(newData);
-  }
+    for (let key in formValues) {
+      if (formValues[key].type === "question") {
+        try {
+          const id = await saveQuestions(formValues[key]);
+          newData.push(id);
+        } catch (error) {
+          console.error(`Error saving questions: ${error}`);
+        }
+      } else if (
+        formValues[key].type === "image/png" ||
+        formValues[key].type === "video/mp4"
+      ) {
+        const referenceString = await postFile(formValues[key]);
 
-  async function postFile(file) {
-    try {
-      if (file.type === "image/png") {
-        const formData = new FormData();
-        formData.append("image", file);
-        const resp = await axios.post(`${baseUrl}/courses/images`, formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
-        console.log(resp);
-        return resp.data;
+        newData.push(referenceString);
+      } else {
+        newData.push(formValues[key]);
       }
-      if (file.type === "video/mp4") {
-        const formData = new FormData();
-        formData.append("video", file);
-        const resp = await axios.post(`${baseUrl}/courses/videos`, formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
-        console.log(resp);
-        return resp.data.Key;
-      }
-    } catch (err) {
-      console.log(err);
     }
+    return newData;
   }
 
   return (
@@ -143,11 +196,7 @@ export const AddCourse = () => {
         <div className="row left">
           <div className=" pad">
             <div className="add-course-content ">
-              <input
-                type="text"
-                placeholder="Field Name"
-                onChange={(e) => setFieldName(e.target.value)}
-              />
+              {addFieldsList()}
               <input
                 type="text"
                 placeholder="Course Name"
@@ -183,6 +232,12 @@ export const AddCourse = () => {
           </button>
           <button className="btn black" onClick={() => addDynamicInput("file")}>
             Add File
+          </button>
+          <button
+            className="btn black"
+            onClick={() => addDynamicInput("question")}
+          >
+            Add Question
           </button>
           <button className="btn black" onClick={handleSubmit}>
             Submit

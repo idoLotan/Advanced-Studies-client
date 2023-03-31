@@ -49,6 +49,7 @@ const Header = () => {
 
   function handleLogOut() {
     logout();
+    window.location.reload();
     setLogin(false);
     setAdmin(false);
   }

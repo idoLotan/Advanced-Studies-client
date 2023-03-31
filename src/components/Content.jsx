@@ -10,6 +10,8 @@ function Content({ setIsReading, img, text }) {
   const [displayText, setDisplayText] = useState([text[0]]);
   const videoRef = useRef(null);
 
+  console.log(displayText);
+
   function isMongoObjectId(id) {
     return ObjectID.isValid(id);
   }
@@ -32,7 +34,6 @@ function Content({ setIsReading, img, text }) {
       <div className="row ">
         <img src={`${baseUrl}/courses/images/${img}`} className="intro-img" />
       </div>
-
       {displayText.map((paragraph) =>
         isMongoObjectId(paragraph) ? (
           <Question questionId={paragraph} />

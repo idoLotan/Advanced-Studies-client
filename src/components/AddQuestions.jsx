@@ -1,77 +1,46 @@
-import axios from "axios";
-import { useState } from "react";
-import { baseUrl } from "../axios";
-import InputFile from "../Layouts/InputFile/InputFile";
-
-export const AddQuestions = () => {
+import { useEffect, useState } from "react";
+export const AddQuestions = ({
+  currentCourseName,
+  onChange,
+  setQuestionData,
+}) => {
   const [message, setMessage] = useState([]);
-  const [courseName, setCourseName] = useState([]);
+  const [courseName, setCourseName] = useState(currentCourseName);
   const [answerA, setAnswerA] = useState("");
   const [answerB, setAnswerB] = useState("");
   const [answerC, setAnswerC] = useState("");
   const [answerD, setAnswerD] = useState("");
   const [correctAnswer, setCorrectAnswer] = useState("");
-  const [file, setFile] = useState();
   const [question, setQuestion] = useState("");
 
-  const handleCorrect = (e) => {
-    setCorrectAnswer(e.target.value);
-  };
+  useEffect(() => {
+    setCourseName(currentCourseName);
+  }, [currentCourseName]);
 
-  async function postImage(imageType, id, file) {
-    try {
-      const formData = new FormData();
-      formData.append("image", file);
-      const resp = await axios.post(
-        `${baseUrl}/courses/images/${imageType}/${id}`,
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
-      console.log(resp);
-      return resp.data;
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  const saveQuestions = async () => {
+  useEffect(() => {
     let data = {
       question: question,
       optionalAnswers: [answerA, answerB, answerC, answerD],
       answer: correctAnswer,
       difficulty: 1,
+      type: "question",
     };
-    try {
-      const resp = await axios.post(
-        `${baseUrl}/courses/questions/${courseName}`,
-        data
-      );
-      const id = resp.data._id;
-      postImage("question", id, file);
-      setMessage(id ? "question added!" : "item already exist!");
-    } catch (err) {
-      console.log(err);
-    }
+    console.log(data);
+    setQuestionData(data);
+    onChange(data);
+  }, [answerA, answerB, answerC, answerD, question, correctAnswer]);
+
+  const handleCorrect = (e) => {
+    setCorrectAnswer(e.target.value);
   };
 
   return (
     <div className="add-question fade-in">
       <div className="pad">
-        <h2>Add new questions </h2>
-      </div>
-      <div className="row left pad">
-        <InputFile setFile={setFile} title={"question image"}></InputFile>
+        <h5>Add new questions </h5>
       </div>
 
       <div className="pad">
-        <input
-          type="text"
-          placeholder="Course Name"
-          onChange={(e) => setCourseName(e.target.value)}
-        />
-
         <textarea
           placeholder="write your question..."
           className="pad"
@@ -117,9 +86,9 @@ export const AddQuestions = () => {
       </div>
 
       <div className="col right pad">
-        <button onClick={saveQuestions} className="btn black">
+        {/* <button onClick={onSave} className="btn black">
           Add
-        </button>
+        </button> */}
         {message && <h4>{message}</h4>}
       </div>
     </div>

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { handleTokenExpiration } from "../auth/auth";
 import { baseUrl, getCoursesByField } from "../axios";
 import Courses from "../components/Courses";
 import Search from "../components/Search";
@@ -19,6 +20,7 @@ const CoursesPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    handleTokenExpiration();
     async function getCourses() {
       const phyicsCourses = await getCoursesByField("phyics");
       const chemistryCourses = await getCoursesByField("chemistry");
@@ -77,10 +79,7 @@ const CoursesPage = () => {
                 currntClass={currentCourse}
               ></Search>
             ) : (
-              <div
-                // style={{ display: isLoading ? "none" : "block" }}
-                className="fade-in"
-              >
+              <div className="fade-in">
                 <Courses
                   courses={physicsCourses}
                   title={"Physics Courses"}

@@ -5,6 +5,7 @@ import Button from "../Layouts/Button/Button";
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
   const handleHome = useCallback(() => {
     navigate("/home");
   }, [navigate]);
@@ -17,15 +18,17 @@ const Navbar = () => {
     <div className="navbar">
       <div className="row">
         <Button
+          className={"bottom-line "}
           icon={"home"}
           text={"Home"}
           onClick={handleHome}
-          border={location.pathname === "/home" ? "2px solid black" : ""}
+          style={location.pathname === "/home" ? "2px solid black" : ""}
         />
         <Button
+          className={"bottom-line"}
           icon={"paste"}
           text={"Courses"}
-          border={location.pathname === "/courses" ? "2px solid black" : ""}
+          style={location.pathname === "/courses" ? "2px solid black" : ""}
           onClick={handleCourses}
         />
       </div>

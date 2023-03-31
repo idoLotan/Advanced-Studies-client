@@ -3,8 +3,8 @@ import "./Button.css";
 const Button = ({ icon, onClick, text, className, style, size }) => {
   return (
     <div
-      className={`custom-btn ${className} row`}
-      style={style}
+      className={`custom-btn ${className} row `}
+      style={{ borderBottom: style }}
       onClick={onClick}
     >
       {icon && <Icon Icon={icon} size={size} />}

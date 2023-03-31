@@ -8,7 +8,8 @@ const Courses = ({
   myCoursesIds = "",
   isOpen,
 }) => {
-  const coursesToRender = courses.filter((course) => {
+  console.log(courses);
+  const coursesToRender = courses?.filter((course) => {
     const courseId = course?._id;
     const completed =
       myCoursesIds[courseId]?.length === course?.questions?.length;
@@ -18,7 +19,7 @@ const Courses = ({
     <div className="courses">
       <div className="cards-title">{title}</div>
       <div className="courses row left">
-        {coursesToRender.map((course) => (
+        {coursesToRender?.map((course) => (
           <Card
             handleImageLoaded={handleImageLoaded}
             currentCourse={course}

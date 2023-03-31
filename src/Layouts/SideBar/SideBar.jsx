@@ -21,13 +21,13 @@ export const Sidebar = ({ dispatch, state, title }) => {
           style={{ color: state.option === "course" && "gray" }}
         ></Button>
 
-        <Button
+        {/* <Button
           className={"pad"}
           icon="question"
           onClick={() => dispatch({ type: "questions" })}
           text={"questions"}
           style={{ color: state.option === "questions" && "gray" }}
-        ></Button>
+        ></Button> */}
       </aside>
     </div>
   );

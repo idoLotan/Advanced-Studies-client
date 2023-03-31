@@ -185,7 +185,6 @@ textarea{
     display: flex;
     flex-direction: column;
     justify-content:center; 
-    /* border-bottom: var(--fs-lg) solid #999999; */
     z-index:10;
     box-shadow: 0px 0px 15px rgb(0 0 0 / 20%);
   }
@@ -252,9 +251,10 @@ textarea{
 }
 
 .cards-title{
+  width: clamp(200px ,80vw , 900px);
   font-weight: 400;
-  margin-left: 20px;
-  padding-bottom: 10px;
+  margin-left: 25px;
+  /* padding-bottom: 10px; */
 }
    
 .btn{
@@ -274,6 +274,15 @@ textarea{
   background-position: 12px 11px;
   cursor: pointer;
 }
+
+.bottom-line{
+ padding: 30px;
+}
+
+.bottom-line:hover{
+  padding: 30px;
+  border-bottom: 2px solid #ccc;
+ }
 
 .content{
   line-height: 1.6rem;
@@ -298,8 +307,13 @@ textarea{
   left: 0;
 }
 
+
+
 .resume-btn{
-  justify-content: space-around
+  justify-content: space-around;
+  position:absolute;
+  bottom:10px;
+  right: 10px;
 }
 
 .start-class-btn{
@@ -437,25 +451,49 @@ top: 3px;
   }
 
   .last-course{
-      width: clamp(200px ,80vw , 850px);
-      margin: auto;
+
+    margin: auto auto 50px auto;
+      width: clamp(500px ,80vw , 850px); 
+      min-width: 500px;
       height: 250px;
       font-weight: 500;
       border: 1px solid #ccc;
       border-radius: 4px;
+     
   }
 
   .last-course-title{
     width: clamp(200px ,80vw , 850px);
     margin: auto;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
   }
 
   .last-course-image{
-    border-radius: 4px;
+    border-radius: 5px;
     margin-left:10px ;
+    max-width: 400px;
+    max-height:250px;
+    padding: 10px;
+  }
+
+  .last-course-text{
+     color: #707070;
+     font-weight: 400;
+     display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 
   }
+
+
+  .last-course-btn{
+    margin: 0;
+    margin-top: 20px;
+   
+ }
+
+  
 
   .custom-content-input {
     height: 40px;
@@ -508,6 +546,11 @@ top: 3px;
 
 
 @media (width < 768px)  {
+
+
+  .last-course{
+    width:92%;
+  }
 
   .card-img{
   width: var(--img-xxs);

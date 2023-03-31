@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getToken, storeToken, storeUserData } from "./auth/auth";
 
-export const baseUrl = "http://localhost:4000";
+export const baseUrl = "https://advanced-studies-server-idolotan.onrender.com";
 
 export const config = {
   headers: {
@@ -109,4 +109,45 @@ export const getUserData = async (setData) => {
   console.log(userData);
   setData(userData);
   return userData;
+};
+
+export const getFields = async () => {
+  try {
+    const response = await axios.get(`${baseUrl}/courses/fields`, config);
+    const fields = response.data;
+    // response.data.forEach(())
+    const fieldsNameList = [];
+    fields.forEach((obj) => {
+      fieldsNameList.push(obj.field);
+    });
+    console.log(fieldsNameList);
+    return fieldsNameList;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const postFile = async (file) => {
+  try {
+    if (file.type === "image/png") {
+      const formData = new FormData();
+      formData.append("image", file);
+      const resp = await axios.post(`${baseUrl}/courses/images`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      console.log(resp);
+      return resp.data;
+    }
+    if (file.type === "video/mp4") {
+      const formData = new FormData();
+      formData.append("video", file);
+      const resp = await axios.post(`${baseUrl}/courses/videos`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      console.log(resp);
+      return resp.data.Key;
+    }
+  } catch (err) {
+    console.log(err);
+  }
 };

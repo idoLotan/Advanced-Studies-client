@@ -8,7 +8,7 @@ const IntroPage = ({
 }) => {
   return (
     <div>
-      <div className="course-page-content col ">
+      <div className="course-page-content col">
         <div
           className="title"
           style={{ fontFamily: "Helvetica", fontWeight: 100 }}

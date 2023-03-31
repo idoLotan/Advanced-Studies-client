@@ -1,13 +1,16 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
-import { isLoggedIn, storeUserData } from "../auth/auth";
+import {
+  checkTokenExpiration,
+  isLoggedIn,
+  logout,
+  storeUserData,
+} from "../auth/auth";
 import { baseUrl, config } from "../axios";
 
 export const UserContext = createContext({ user: null, token: null });
 
 const Provider = UserContext.Provider;
-
-// const user = JSON.parse(localStorage.getItem("personObject"));
 const token = localStorage.getItem("Token");
 
 export const UserProvider = ({ children }) => {
@@ -19,6 +22,13 @@ export const UserProvider = ({ children }) => {
   }
 
   useEffect(() => {
+    const tokenExpired = checkTokenExpiration();
+
+    if (tokenExpired) {
+      logout();
+      window.location.reload();
+    }
+
     const isLogged = isLoggedIn();
     if (isLogged) {
       getMe();

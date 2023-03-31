@@ -17,24 +17,22 @@ export const Login = ({ onClose }) => {
     };
 
     const resp = await axios.post(`${baseUrl}/users/login`, userData);
-    console.log("resp", resp);
-    const token = resp.data.data.access_token;
-    const userObj = resp.data.data.user;
-    storeToken(token);
-    storeUserData(userObj);
-    window.location.reload();
-  };
-
-  const renderError = () => {
-    if (error.length !== 0) {
-      return error.map((err) => <h3 key={err}>{err}</h3>);
+    console.log("resp", resp.data.status);
+    console.log(resp.data.status == 404);
+    if (resp.data.status == 404) {
+      setError("user not found");
+      return;
     } else {
-      return null;
+      const token = resp.data.data.access_token;
+      const userObj = resp.data.data.user;
+      storeToken(token);
+      storeUserData(userObj);
+      window.location.reload();
     }
   };
 
   return (
-    <form className="login">
+    <div className="login">
       <div className="content">
         <div className="title">
           <h3>Login</h3>
@@ -63,8 +61,10 @@ export const Login = ({ onClose }) => {
             Login
           </button>
         </div>
-        <div className="errorUser">{renderError()}</div>
+        <div style={{ color: "red" }} className="row ">
+          {error}
+        </div>
       </div>
-    </form>
+    </div>
   );
 };

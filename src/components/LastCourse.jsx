@@ -24,34 +24,38 @@ const LastCourse = ({ choseCourse }) => {
   }, []);
 
   return (
-    <div className="">
-      <div className="last-course-title "> pick up where you left off</div>
+    <div className="pad">
+      {course && (
+        <>
+          <div className="last-course-title">Pick up where you left off</div>
+          <div className="last-course row between">
+            <div className="row between">
+              {course?.pageImgUrl && (
+                <img
+                  className="last-course-image "
+                  src={`${baseUrl}/courses/images/${course?.pageImgUrl}`}
+                ></img>
+              )}
 
-      <div className="last-course row between">
-        <div className="row left">
-          {course?.pageImgUrl && (
-            <img
-              className="last-course-image"
-              style={{ height: "200px" }}
-              src={`${baseUrl}/courses/images/${course?.pageImgUrl}`}
-            ></img>
-          )}
-        </div>
-        <div className="col left">
-          <h1> {course?.courseName}</h1>
+              <div className="last-course-name  pad">
+                <h2>
+                  <b>{course?.courseName}</b>
+                </h2>
+                <div className="last-course-text">{course?.courseText}</div>
 
-          <Button
-            className="btn black resume-btn "
-            onClick={() => {
-              choseCourse(course._id);
-            }}
-            text={"Resume course"}
-            icon={"play"}
-          ></Button>
-        </div>
-
-        <div></div>
-      </div>
+                <Button
+                  className="btn black last-course-btn"
+                  onClick={() => {
+                    choseCourse(course._id);
+                  }}
+                  text={"Resume course"}
+                  icon={"play"}
+                />
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
