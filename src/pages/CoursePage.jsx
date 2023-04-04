@@ -70,7 +70,7 @@ const CoursePage = ({ currentCourse, setToggledCourse }) => {
     <div className="fade-in">
       <div className="row"> {isLoading && <Loader />}</div>
 
-      {classEnded ? (
+      {!isReading ? (
         <EndgPage
           setToggledCourse={setToggledCourse}
           currentCourse={currentCourse}

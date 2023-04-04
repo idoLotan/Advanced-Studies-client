@@ -1,8 +1,7 @@
 import axios from "axios";
 import { getToken, storeToken, storeUserData } from "./auth/auth";
 
-export const baseUrl =
-  "https://advanced-studies-server-idolotan-1.onrender.com";
+export const baseUrl = "http://localhost:4000";
 
 export const config = {
   headers: {

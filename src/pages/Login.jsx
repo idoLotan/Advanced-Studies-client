@@ -32,7 +32,7 @@ export const Login = ({ onClose }) => {
   };
 
   return (
-    <div className="login">
+    <form className="login">
       <div className="content">
         <div className="title">
           <h3>Login</h3>
@@ -65,6 +65,6 @@ export const Login = ({ onClose }) => {
           {error}
         </div>
       </div>
-    </div>
+    </form>
   );
 };

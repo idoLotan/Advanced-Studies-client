@@ -547,10 +547,63 @@ top: 3px;
 
 @media (width < 768px)  {
 
-
   .last-course{
-    width:92%;
+      margin: auto auto 50px auto;
+      width: 100%; 
+      min-width: 100%;
+      padding: 10px;  
+      height: 250px;
+      font-weight: 500;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+     
   }
+
+  .last-course-title{
+    width: 100%;
+    margin: auto;
+    padding-bottom: 20px;
+  }
+
+  .last-course-image{
+  display: none;
+  }
+
+  .last-course-text{
+     color: #707070;
+     font-weight: 400;
+     display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  }
+
+
+  .last-course-btn{
+    margin: 0;
+    margin-top: 20px;
+   
+ }
+
+  .bottom-line:hover{
+    border-bottom: 2px solid #ccc;
+   }
+ 
+  .bottom-line {
+    padding-bottom: 30px; 
+}
+
+  .navbar{
+    margin-left:0px;
+  }
+
+
+  
+
+  /* .card{
+    margin: 0;
+  } */
 
   .card-img{
   width: var(--img-xxs);
@@ -568,10 +621,6 @@ top: 3px;
  
 }
 
-.my-courses{
-  width: 100%;
- 
-}
 
 
 .courses{
@@ -579,12 +628,10 @@ top: 3px;
   display:flex;
   flex-direction:column;
   justify-content: flex-start;
-  margin:0;
+  margin-top:10px;
+  padding: 0px; 
 }
 
-.popular-classes{
-  width: 100%;
-}
 
 
 .welcome-section{
