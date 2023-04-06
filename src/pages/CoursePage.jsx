@@ -101,6 +101,7 @@ const CoursePage = ({ currentCourse, setToggledCourse }) => {
                 setIsReading={setIsReading}
                 img={img}
                 text={currentCourse.courseContent}
+                currentCourse={currentCourse}
               />
 
               {/* {!isReading && (

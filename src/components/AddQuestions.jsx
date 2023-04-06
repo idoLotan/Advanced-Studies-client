@@ -35,7 +35,7 @@ export const AddQuestions = ({
   };
 
   return (
-    <div className="add-question fade-in">
+    <div className="add-question ">
       <div className="pad">
         <h5>Add new questions </h5>
       </div>

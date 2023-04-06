@@ -30,7 +30,7 @@ export const AddField = () => {
 
   return (
     <>
-      <div className="add-field fade-in pad ">
+      <div className="add-field  pad ">
         <h2 className="pad">Add new field</h2>
         <input ref={fieldNameRef} type="text" placeholder="Field Name" />
       </div>

@@ -17,7 +17,7 @@ export const Login = ({ onClose }) => {
     };
 
     const resp = await axios.post(`${baseUrl}/users/login`, userData);
-    console.log("resp", resp.data.status);
+    console.log("resp", resp);
     console.log(resp.data.status == 404);
     if (resp.data.status == 404) {
       setError("user not found");

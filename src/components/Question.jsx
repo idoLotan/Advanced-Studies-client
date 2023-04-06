@@ -51,6 +51,9 @@ const Question = ({ questionId, currentCourse }) => {
     try {
       const token = localStorage.getItem("Token");
       const user = JSON.parse(localStorage.getItem("personObject"));
+      console.log(qestion);
+      console.log(user);
+      console.log(currentCourse);
       if (token) {
         const resp = await axios.post(
           `${baseUrl}/courses/login/submitAnswer/${qestion._id}`,

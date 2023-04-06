@@ -1,7 +1,8 @@
 import axios from "axios";
 import { getToken, storeToken, storeUserData } from "./auth/auth";
 
-export const baseUrl = "http://localhost:4000";
+export const baseUrl =
+  "https://advanced-studies-server-idolotan-1.onrender.com";
 
 export const config = {
   headers: {
@@ -76,6 +77,17 @@ export const getCoursesByField = async (fieldName) => {
 
     const courseList = await Promise.all(promises);
     return courseList;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getAllCourses = async () => {
+  try {
+    const response = await axios.get(`${baseUrl}/courses`, config);
+    const courses = response.data;
+    console.log(courses);
+    return courses;
   } catch (err) {
     console.log(err);
   }

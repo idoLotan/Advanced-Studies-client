@@ -1,12 +1,12 @@
 .sidebar {
-  height: 180px;
-  width: 250px;
-  background-color: #f1f1f1;
-  padding: 20px;
-  margin-left: 10px;
-  border-radius: 4px;
+  /* height: 180px;
+  width: 250px; */
+  /* background-color: #f1f1f1; */
+  /* padding: 20px; */
+  /* margin-left: 10px; */
+  /* border-radius: 4px;
   box-sizing: border-box;
-  font-weight:400;
+  font-weight:400; */
   }
 
 
@@ -22,7 +22,7 @@
 }
 
 aside{
-  background-color:  #f1f1f1;
+ 
   border-radius: 5px;
   width: 200px;
   display:flex;
@@ -30,3 +30,5 @@ aside{
   align-items: flex-start;
   font-weight:400;
 }
+
+

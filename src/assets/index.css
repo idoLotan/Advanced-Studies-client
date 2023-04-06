@@ -223,6 +223,7 @@ textarea{
   }
 
   .admin-page{
+    transition: 0.3s;
     padding-top: 110px;
     display: flex;
     justify-content: space-between;
@@ -232,7 +233,8 @@ textarea{
     width: 100%;
     margin:0px  10px  10px  10px;
     min-height:200px;
-    border: 1px solid #ccc;
+    transition: 3s;
+    /* border: 1px solid #ccc; */
     border-radius: 4px;
   }
 
@@ -438,6 +440,7 @@ top: 3px;
 
   .add-course{
     width: 100%;
+    transition: 2s;
   }
 
   .add-course-content{
@@ -542,6 +545,10 @@ top: 3px;
 
  .add-content-unit {
   margin-top: 10px;
+ }
+
+ .edit-course{
+  padding: 20px;
  }
 
 

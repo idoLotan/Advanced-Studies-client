@@ -5,12 +5,10 @@ import Question from "./Question";
 import { Video } from "./Video";
 const ObjectID = require("bson-objectid");
 
-function Content({ setIsReading, img, text }) {
+function Content({ setIsReading, img, text, currentCourse }) {
   const [currentParagraph, setCurrentParagraph] = useState(1);
   const [displayText, setDisplayText] = useState([text[0]]);
   const videoRef = useRef(null);
-
-  console.log(displayText);
 
   function isMongoObjectId(id) {
     return ObjectID.isValid(id);
@@ -36,10 +34,14 @@ function Content({ setIsReading, img, text }) {
       </div>
       {displayText.map((paragraph) =>
         isMongoObjectId(paragraph) ? (
-          <Question questionId={paragraph} />
+          <Question
+            questionId={paragraph}
+            currentCourse={currentCourse}
+            key={paragraph}
+          />
         ) : isAWSDocument(paragraph) ? (
           paragraph.includes("mp4") ? (
-            <Video paragraph={paragraph} />
+            <Video paragraph={paragraph} key={paragraph} />
           ) : (
             <div className="row">
               <img src={`${baseUrl}/courses/images/${paragraph}`}></img>

@@ -31,7 +31,6 @@ export const AddCourse = () => {
   }, []);
 
   const saveQuestions = async (questionData) => {
-    console.log(questionData);
     try {
       const resp = await axios.post(
         `${baseUrl}/courses/questions/${courseName}`,
@@ -102,24 +101,28 @@ export const AddCourse = () => {
             onClick={() => removeDynamicInput(index)}
           />
           <div>
-            <input
-              className={
-                input.type === "text"
-                  ? "custom-content-input-text"
-                  : "custom-content-input "
-              }
-              type={input.type}
-              placeholder={input.placeholder}
-              // ref={(el) => (inputRefs.current[index] = el)}
-              name={name}
-              onChange={(e) =>
-                setFormValues({
-                  ...formValues,
-                  [name]:
-                    input.type === "file" ? e.target.files[0] : e.target.value,
-                })
-              }
-            />
+            <div>
+              <input
+                className={
+                  input.type === "text"
+                    ? "custom-content-input-text"
+                    : "custom-content-input "
+                }
+                type={input.type}
+                placeholder={input.placeholder}
+                name={name}
+                onChange={(e) =>
+                  setFormValues({
+                    ...formValues,
+                    [name]:
+                      input.type === "file"
+                        ? e.target.files[0]
+                        : e.target.value,
+                  })
+                }
+              />
+              {formValues[name]?.name}
+            </div>
           </div>
         </div>
       );
@@ -179,7 +182,6 @@ export const AddCourse = () => {
         formValues[key].type === "video/mp4"
       ) {
         const referenceString = await postFile(formValues[key]);
-
         newData.push(referenceString);
       } else {
         newData.push(formValues[key]);
@@ -190,7 +192,7 @@ export const AddCourse = () => {
 
   return (
     <div>
-      <div className="add-course pad fade-in">
+      <div className="add-course pad ">
         <h2 className="pad">Add new Course</h2>
 
         <div className="row left">

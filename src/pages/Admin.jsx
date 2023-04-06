@@ -3,6 +3,7 @@ import { AddCourse } from "../components/AddCourse";
 import { AddField } from "../components/AddField";
 import { AddQuestions } from "../components/AddQuestions";
 import { Sidebar } from "../Layouts/SideBar/SideBar";
+import EditCourses from "../components/EditCourses";
 
 export const Admin = () => {
   const [fieldName, setFieldName] = useState("");
@@ -48,9 +49,9 @@ export const Admin = () => {
             />
           </div>
         )}
-        {state.option === "questions" && (
+        {state.option === "courses" && (
           <div>
-            <AddQuestions
+            <EditCourses
               setCourseName={setCourseName}
               state={state}
               setQuestions={setQuestions}
