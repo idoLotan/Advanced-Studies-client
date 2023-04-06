@@ -40,7 +40,7 @@ const Home = () => {
           setToggledCourse={setToggledCourse}
         />
       ) : (
-        <div>
+        <div style={{ display: isLoading ? "none" : "block" }}>
           <div className="welcome-section row between">
             <div className="col left ">
               {!islogged && (
@@ -67,10 +67,7 @@ const Home = () => {
             </div>
           </div>
 
-          <div
-            style={{ display: isLoading ? "none" : "block" }}
-            className="fade-in"
-          >
+          <div className="fade-in">
             {islogged && (
               <>
                 <LastCourse choseCourse={choseCourse}></LastCourse>

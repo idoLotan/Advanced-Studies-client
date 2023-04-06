@@ -10,17 +10,17 @@ export const Login = ({ onClose }) => {
   const passwordRef = useRef();
   const [error, setError] = useState([]);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     const userData = {
       email: emailRef.current.value,
       password: passwordRef.current.value,
     };
 
     const resp = await axios.post(`${baseUrl}/users/login`, userData);
-    console.log("resp", resp);
-    console.log(resp.data.status == 404);
     if (resp.data.status == 404) {
-      setError("user not found");
+      setError("password or email is incorrect");
       return;
     } else {
       const token = resp.data.data.access_token;
