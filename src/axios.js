@@ -102,7 +102,7 @@ export const getChemistryCourses = async () => {
 export const getMyCourses = async (setMycourses, setMyCoursesIds) => {
   const userData = await axios.get(`${baseUrl}/users/me`, config);
   const user = userData.data.data;
-  const myCoursesIds = user.courses;
+  const myCoursesIds = user?.courses;
   setMyCoursesIds(myCoursesIds);
   let tempCourseList = [];
   try {
