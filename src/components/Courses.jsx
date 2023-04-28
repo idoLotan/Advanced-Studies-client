@@ -8,6 +8,7 @@ const Courses = ({
   myCoursesIds = "",
   isOpen,
 }) => {
+  console.log(courses);
   const coursesToRender = courses?.filter((course) => {
     const courseId = course?._id;
     const completed =

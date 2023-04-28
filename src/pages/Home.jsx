@@ -17,7 +17,7 @@ const Home = () => {
   const [myCourses, setMyCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [myCoursesIds, setMyCoursesIds] = useState([]);
-
+  console.log(popCourses);
   const context = useContext(UserContext);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const Home = () => {
           setToggledCourse={setToggledCourse}
         />
       ) : (
-        <div style={{ display: isLoading ? "none" : "block" }}>
+        <div>
           <div className="welcome-section row between">
             <div className="col left ">
               {!islogged && (
@@ -66,7 +66,6 @@ const Home = () => {
               <img src={homePagePhoto} className="homePagePhoto"></img>
             </div>
           </div>
-
           <div className="fade-in">
             {islogged && (
               <>
