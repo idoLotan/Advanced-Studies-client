@@ -9,6 +9,7 @@ import useCourse from "../Hooks/useCourse";
 import Courses from "../components/Courses";
 import { getCourses } from "../helper";
 import LastCourse from "../components/LastCourse";
+import Button from "../Layouts/Button/Button";
 
 const Home = () => {
   const { choseCourse, currentCourse, setToggledCourse, toggledCourse } =
@@ -44,9 +45,11 @@ const Home = () => {
           <div className="welcome-section row between">
             <div className="col left ">
               {!islogged && (
-                <h2>
-                  <b>Welcome to Advanced Studies!</b>
-                </h2>
+                <>
+                  <h2>
+                    <b>Welcome to Advanced Studies!</b>
+                  </h2>
+                </>
               )}
 
               {islogged && (
@@ -62,7 +65,7 @@ const Home = () => {
               )}
               <h3>ready to discover new ideas and expand your knowledge?</h3>
             </div>
-            <div className=" row right">
+            <div className="row right">
               <img src={homePagePhoto} className="homePagePhoto"></img>
             </div>
           </div>

@@ -23,12 +23,10 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     const tokenExpired = checkTokenExpiration();
-
     if (tokenExpired) {
       logout();
       window.location.reload();
     }
-
     const isLogged = isLoggedIn();
     if (isLogged) {
       getMe();

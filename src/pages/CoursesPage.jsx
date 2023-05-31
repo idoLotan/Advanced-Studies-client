@@ -59,7 +59,7 @@ const CoursesPage = () => {
       className="classes-page  "
       style={{ display: isLoading ? "none" : "block" }}
     >
-      {loader && <span class="loader"></span>}
+      {loader && <span className="loader"></span>}
       <div className="classes-page-section col pad">
         {toggledCourse ? (
           <>

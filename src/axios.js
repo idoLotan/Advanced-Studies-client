@@ -2,7 +2,7 @@ import axios from "axios";
 import { getToken, storeToken, storeUserData } from "./auth/auth";
 
 export const baseUrl =
-  "https://advanced-studies-server-production.up.railway.app";
+  "https://advanced-studies-server-idolotan-1.onrender.com";
 
 export const config = {
   headers: {

@@ -68,7 +68,7 @@ const CoursePage = ({ currentCourse, setToggledCourse }) => {
 
   return (
     <div className="fade-in">
-      <div className="row"> {isLoading && <Loader />}</div>
+      <div className="row"> {isLoading && <span class="spinner"></span>}</div>
 
       {!isReading ? (
         <EndgPage
@@ -103,18 +103,6 @@ const CoursePage = ({ currentCourse, setToggledCourse }) => {
                 text={currentCourse.courseContent}
                 currentCourse={currentCourse}
               />
-
-              {/* {!isReading && (
-                <Questions
-                  currentCourse={currentCourse}
-                  setCount={setCount}
-                  count={count}
-                  qestion={qestion}
-                  setQuestion={setQuestion}
-                  previousBtnDisplay={previousBtnDisplay}
-                  courseQuestions={courseQuestions}
-                />
-              )} */}
             </>
           )}
         </div>
