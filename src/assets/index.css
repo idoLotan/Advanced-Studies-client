@@ -378,7 +378,7 @@ padding-top: 110px;
  transition: opacity .25s ease;
  margin-right:20px;
  transition-property: background-color;
- animation: fadeIn 1s;
+ /* animation: fadeIn 1s; */
 }
 
 .login>.content{
@@ -414,7 +414,7 @@ transition-property: background-color;
 transition: opacity .25s ease;
 margin-right:20px;
 transition-property: background-color;
-animation: fadeIn 1s;
+/* animation: fadeIn 1s; */
 }
 
 
@@ -708,7 +708,7 @@ position: absolute;
 top: 0;
 left: 0;
 box-sizing: border-box;
-animation: animloader 2s linear infinite;
+ animation: animloader 2s linear infinite; 
 }
 
 

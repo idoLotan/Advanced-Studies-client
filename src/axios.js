@@ -2,7 +2,7 @@ import axios from "axios";
 import { getToken, storeToken, storeUserData } from "./auth/auth";
 
 export const baseUrl =
-  "https://advanced-studies-server-idolotan-1.onrender.com";
+  "https://advanced-studies-server-production.up.railway.app";
 
 export const config = {
   headers: {
@@ -55,7 +55,6 @@ export const getPopularCourses = async () => {
   try {
     const temp = await axios.get(`${baseUrl}/courses/popular`, config);
     const PopCourses = temp.data.data;
-    console.log("PopCourses", PopCourses);
     return PopCourses;
   } catch (err) {
     console.log(err);
