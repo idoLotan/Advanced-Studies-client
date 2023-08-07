@@ -9,7 +9,6 @@ import useCourse from "../Hooks/useCourse";
 import Courses from "../components/Courses";
 import { getCourses } from "../helper";
 import LastCourse from "../components/LastCourse";
-import Button from "../Layouts/Button/Button";
 
 const Home = () => {
   const { choseCourse, currentCourse, setToggledCourse, toggledCourse } =
@@ -18,7 +17,7 @@ const Home = () => {
   const [myCourses, setMyCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [myCoursesIds, setMyCoursesIds] = useState([]);
-  console.log(popCourses);
+
   const context = useContext(UserContext);
 
   useEffect(() => {
@@ -33,8 +32,10 @@ const Home = () => {
     setIsLoading(false);
   }
 
+
+
   return (
-    <div className="home-page   ">
+    <div className="home-page   "  style={{ display: isLoading ? "none" : "block" }}>
       {toggledCourse ? (
         <CoursePage
           currentCourse={currentCourse}
@@ -46,9 +47,9 @@ const Home = () => {
             <div className="col left ">
               {!islogged && (
                 <>
-                  <h2>
-                    <b>Welcome to Advanced Studies!</b>
-                  </h2>
+                  <h1>
+                    <b >Welcome to Advanced Studies!</b>
+                  </h1>
                 </>
               )}
 
@@ -66,7 +67,7 @@ const Home = () => {
               <h3>ready to discover new ideas and expand your knowledge?</h3>
             </div>
             <div className="row right">
-              <img src={homePagePhoto} className="homePagePhoto"></img>
+              <img src={homePagePhoto}  onLoad={handleImageLoaded} className="homePagePhoto" ></img>
             </div>
           </div>
           <div className="fade-in">
